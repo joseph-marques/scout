@@ -4,5 +4,5 @@ go 1.13
 
 require (
     github.com/graph-gophers/graphql-go v0.0.0-20200207002730-8334863f2c8b
-    github.com/shuLhan/go-bindata/...
+    github.com/shuLhan/go-bindata/... v3.4.0
 )
