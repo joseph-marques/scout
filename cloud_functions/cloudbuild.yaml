@@ -3,7 +3,7 @@ steps:
     args: ['go', 'version']
   - name: 'mirror.gcr.io/library/golang'
     args: ['go', 'test']
-    dir: 'functions'
+    dir: 'cloud_functions/functions'
   - name: 'gcr.io/cloud-builders/gcloud'
     args: ['functions', 'deploy', 'GraphQL-Handler', '--trigger-http', '--runtime', 'go111', '--allow-unauthenticated', '--entry-point', 'HandleGraphQL']
-    dir: 'functions'
+    dir: 'cloud_functions/functions'
