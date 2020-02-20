@@ -1,0 +1,22 @@
+name: Frontend
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      
+      # Setup gcloud CLI
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: latest
+          service_account_email: ${{ secrets.GCS_SERVICE_ACCOUNT }}
+          service_account_key: ${{ secrets.GCS_SERVICE_ACCOUNT_KEY }}
+      
+      - name: Upload Files to GCP Bucket
+        run: gsutil rsync -R frontend gs://scout-mpcs
