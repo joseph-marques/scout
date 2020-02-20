@@ -4,7 +4,11 @@
 //go:generate go-bindata -pkg=scout -o=bindata.go ../../graphql/...
 package scout
 
-import "bytes"
+import (
+	"bytes"
+
+	_ "github.com/shuLhan/go-bindata"
+)
 
 // SchemaString reads the .graphql schema files from the generated _bindata.go file, concatenating the
 // files together into one string.
