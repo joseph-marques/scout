@@ -2,8 +2,8 @@ steps:
   - name: 'mirror.gcr.io/library/golang'
     args: ['go', 'version']
   - name: 'mirror.gcr.io/library/golang'
-    args: ['go', 'get', '-u', 'github.com/shuLhan/go-bindata/...', '&&', 'go', 'generate']
-    dir: 'cloud_functions/functions'
+    args: ['bash', './generate.sh']
+    dir: 'cloud_functions'
   - name: 'mirror.gcr.io/library/golang'
     args: ['go', 'test']
     dir: 'cloud_functions/functions'
