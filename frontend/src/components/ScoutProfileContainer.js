@@ -16,6 +16,10 @@ function ScoutProfileContainer() {
     reviews: {
       rating: 3.8,
       count: 48
+    },
+    experience: {
+      education: ['Bsc in economics from XX', 'Bsc in statistics from XX'],
+      work: []
     }
   };
 

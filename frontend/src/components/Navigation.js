@@ -29,12 +29,12 @@ function Navigation() {
           <div className="md:flex-grow flex">
             <div
               href="#responsive-header"
-              className="block md:inline-block font-semibold md:mt-0 text-black text-sm hover:text-white mx-6"
+              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/"
                 exact={true}
-                className="py-1 px-2"
+                className="py-1 px-0 sm:px-2"
                 activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
               >
                 Home
@@ -42,11 +42,11 @@ function Navigation() {
             </div>
             <div
               href="#responsive-header"
-              className="block md:inline-block font-semibold md:mt-0 text-black text-sm hover:text-white mx-6"
+              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/scouts"
-                className="py-1 px-2"
+                className="py-1 px-0 sm:px-2"
                 activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
               >
                 Find a Scout
@@ -54,11 +54,11 @@ function Navigation() {
             </div>
             <div
               href="#responsive-header"
-              className="block md:inline-block font-semibold md:mt-0 text-black text-sm hover:text-white mx-6"
+              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/settings"
-                className="py-1 px-2"
+                className="py-1 px-0 sm:px-2"
                 activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
               >
                 My Profile
