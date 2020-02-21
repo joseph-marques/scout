@@ -10,7 +10,7 @@ import Footer from './Footer';
 function App() {
   return (
     <div className="flex flex-col absolute h-full w-full bg-gray-100">
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Navigation />
         <div className="flex-grow overflow-auto">
           <Switch>
