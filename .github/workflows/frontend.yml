@@ -1,22 +1,36 @@
 name: Frontend
-
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Packages
+        working-directory: ./frontend
+        run: npm install
+      - name: Build page
+        working-directory: ./frontend
+        run: npm run build
+
       # Setup gcloud CLI
       - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           version: latest
           service_account_email: ${{ secrets.GCS_SERVICE_ACCOUNT }}
           service_account_key: ${{ secrets.GCS_SERVICE_ACCOUNT_KEY }}
-      
+
       - name: Upload Files to GCP Bucket
-        run: gsutil rsync -R frontend gs://scout-mpcs
+        run: gsutil rsync -R frontend/build gs://scout-mpcs
