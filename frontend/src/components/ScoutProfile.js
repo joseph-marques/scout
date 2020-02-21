@@ -6,29 +6,27 @@ import ExperienceSection from './ExperienceSection';
 function ScoutProfile(props) {
   return (
     <div className="flex flex-col w-full py-8 content-center justify-center items-center">
-      <div className="w-2/3">
+      <div className="w-10/12">
         <Card>
-          <div className="flex content-center justify-center items-center">
-            <UserIcon className="mr-12" height={100} width={100} />
+          <div className="flex content-center justify-center items-center mt-4 mb-12">
+            <UserIcon className="mr-12" height={90} width={90} />
             <div>
-              <div className="text-5xl font-serif -mb-2 font-bold tracking-wide">{`${props.firstName} ${props.lastName}`}</div>
-              <div className="text-xl tracking-wide text-gray-800">
+              <div className="text-3xl font-serif -mb-2 font-bold tracking-wide">{`${props.firstName} ${props.lastName}`}</div>
+              <div className="text-lg tracking-wide text-gray-800">
                 {`${props.role.title}, ${props.role.institution}`}
               </div>
             </div>
           </div>
-          <hr className="my-6" />
-          <ExperienceSection
-            title={'Education'}
-            experiences={props.experience.education}
-          />
-          <hr className="my-6" />
-          <div>
-            <div className="text-2xl font-serif -mb-2 font-bold tracking-wide">
-              Experience
-            </div>
-            <div>YYY 2015 - today</div>
-            <div>XXX 2011 - 2015</div>
+          <div className="px-24">
+            <ExperienceSection
+              title={'Education'}
+              experiences={props.experience.education}
+            />
+            <hr className="my-6" />
+            <ExperienceSection
+              title={'Work'}
+              experiences={props.experience.work}
+            />
           </div>
         </Card>
       </div>

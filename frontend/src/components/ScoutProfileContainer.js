@@ -19,7 +19,7 @@ function ScoutProfileContainer() {
     },
     experience: {
       education: ['Bsc in economics from XX', 'Bsc in statistics from XX'],
-      work: []
+      work: ['YYY 2015 - today', 'XXX 2011 - 2015']
     }
   };
 

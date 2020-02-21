@@ -29,7 +29,7 @@ function Navigation() {
           <div className="md:flex-grow flex">
             <div
               href="#responsive-header"
-              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
+              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/"
@@ -42,7 +42,7 @@ function Navigation() {
             </div>
             <div
               href="#responsive-header"
-              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
+              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/scouts"
@@ -54,7 +54,7 @@ function Navigation() {
             </div>
             <div
               href="#responsive-header"
-              className="block font-semibold text-black text-xs sm:text-sm hover:text-white mx-4 sm:mx-6"
+              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
             >
               <NavLink
                 to="/settings"
