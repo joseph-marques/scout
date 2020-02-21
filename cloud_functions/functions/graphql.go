@@ -1,6 +1,7 @@
 package scout
 
 import (
+	"context"
 	"net/http"
 
 	"cloud.google.com/go/firestore"
@@ -8,28 +9,30 @@ import (
 )
 
 type query struct {
-	db firestore.Client
+	db *firestore.Client
 }
 
 type scoutResolver struct {
-	id *graphql.ID
-    firstname *string
-    lastname *string
-    // roles: [Role!]
-    // skills: [String!]
-    // rating: ReviewSummary
+	id        *graphql.ID
+	firstname *string
+	lastname  *string
+	// roles: [Role!]
+	// skills: [String!]
+	// rating: ReviewSummary
 }
 
 func (s *scoutResolver) Id() *graphql.ID {
-	return id
+	return s.id
 }
 
 func (s *scoutResolver) Firstname() *string {
-	return "bob"
+	name := "bob"
+	return &name
 }
 
 func (s *scoutResolver) Lastname() *string {
-	returb "bobert"
+	name := "bobert"
+	return &name
 }
 
 func (s *scoutResolver) Roles() *[]*roleResolver {
@@ -40,21 +43,23 @@ func (s *scoutResolver) Skills() *[]*string {
 	return nil
 }
 
-func (s *scoutResolver) Roles() *reviewSummaryResolver {
+func (s *scoutResolver) Rating() *reviewSummaryResolver {
 	return nil
 }
 
 type roleResolver struct {
 	//title: String
-    //institution: String
+	//institution: String
 }
 
 func (r *roleResolver) Title() *string {
-	return "title"
+	title := "title"
+	return &title
 }
 
 func (r *roleResolver) Institution() *string {
-	return "place"
+	i := "place"
+	return &i
 }
 
 type reviewSummaryResolver struct {
@@ -63,13 +68,14 @@ type reviewSummaryResolver struct {
 }
 
 func (r *reviewSummaryResolver) Rating() *float64 {
-	return 0
+	rating := float64(0)
+	return &rating
 }
 
 func (r *reviewSummaryResolver) Count() *int {
-	return 0
+	c := 0
+	return &c
 }
-
 
 // ScoutQueryArgs are the arguments for the "scout" query.
 type ScoutQueryArgs struct {
@@ -81,8 +87,8 @@ func (_ *query) Hello() string {
 	return "Hello, world!"
 }
 
-func (q *query) Scout(ctx *context.Context, args) {
-
+func (q *query) Scout(ctx *context.Context, args ScoutQueryArgs) *scoutResolver {
+	return &scoutResolver{}
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
