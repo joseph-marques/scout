@@ -1,3 +1,28 @@
 type Query {
     hello: String!
+    scout(id: ID!): Scout
+}
+
+type Mutation {
+    updateScout(id: ID!, scout: Scout!): Scout!
+}
+
+
+type Scout {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    roles: [Role!]
+    skills: [String!]
+    rating: ReviewSummary
+}
+
+type Role {
+    title: String
+    institution: String
+}
+
+type ReviewSummary {
+    rating: Float
+    count: Int
 }
