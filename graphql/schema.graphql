@@ -4,9 +4,21 @@ type Query {
 }
 
 type Mutation {
-    updateScout(id: ID!, scout: Scout!): Scout!
+    updateScout(id: ID!, scout: ScoutInput!): Scout!
 }
 
+input ScoutInput {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    roles: [RoleInput!]
+    skills: [String!]
+}
+
+input RoleInput {
+    title: String
+    institution: String
+}
 
 type Scout {
     id: ID!

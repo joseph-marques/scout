@@ -13,33 +13,46 @@ type query struct {
 }
 
 type scoutResolver struct {
-	id        *graphql.ID
-	firstname *string
-	lastname  *string
+	id        graphql.ID
+	firstname string
+	lastname  string
 	// roles: [Role!]
 	// skills: [String!]
 	// rating: ReviewSummary
 }
 
-func (s *scoutResolver) Id() *graphql.ID {
+type RoleInput struct {
+	Title       *string
+	Institution *string
+}
+
+type ScoutInput struct {
+	ID        graphql.ID
+	Firstname *string
+	Lastname  *string
+	Roles     *[]RoleInput
+	Skills    *[]string
+}
+
+func (s *scoutResolver) Id() graphql.ID {
 	return s.id
 }
 
-func (s *scoutResolver) Firstname() *string {
+func (s *scoutResolver) Firstname() string {
 	name := "bob"
-	return &name
+	return name
 }
 
-func (s *scoutResolver) Lastname() *string {
+func (s *scoutResolver) Lastname() string {
 	name := "bobert"
-	return &name
+	return name
 }
 
 func (s *scoutResolver) Roles() *[]*roleResolver {
 	return nil
 }
 
-func (s *scoutResolver) Skills() *[]*string {
+func (s *scoutResolver) Skills() *[]string {
 	return nil
 }
 
@@ -72,22 +85,33 @@ func (r *reviewSummaryResolver) Rating() *float64 {
 	return &rating
 }
 
-func (r *reviewSummaryResolver) Count() *int {
-	c := 0
+func (r *reviewSummaryResolver) Count() *int32 {
+	c := int32(0)
 	return &c
 }
 
 // ScoutQueryArgs are the arguments for the "scout" query.
 type ScoutQueryArgs struct {
 	// ID of the Scout.
-	Id *graphql.ID
+	Id graphql.ID
 }
 
 func (_ *query) Hello() string {
 	return "Hello, world!"
 }
 
-func (q *query) Scout(ctx *context.Context, args ScoutQueryArgs) *scoutResolver {
+func (q *query) Scout(ctx context.Context, args ScoutQueryArgs) *scoutResolver {
+	return &scoutResolver{}
+}
+
+// UpdateScoutQueryArgs are the arguments for the "scout" query.
+type UpdateScoutQueryArgs struct {
+	// ID of the Scout.
+	Id    graphql.ID
+	Scout *ScoutInput
+}
+
+func (q *query) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) *scoutResolver {
 	return &scoutResolver{}
 }
 
