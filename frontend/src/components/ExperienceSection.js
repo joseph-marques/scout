@@ -1,20 +1,23 @@
 import React from 'react';
+import SectionHeader from './SectionHeader';
 
 function ExperienceSection(props) {
   const renderExperiences = () => {
     return props.experiences.map((experience, i) => {
       return (
-        <div className="text-gray-700" key={i}>
-          {experience}
+        <div key={i} className="my-4">
+          <p className="text-black">{experience.title}</p>
+          <p className="text-gray-700 text-sm">
+            {`${experience.institution}, ${experience.tenure}`}
+          </p>
         </div>
       );
     });
   };
+
   return (
     <div>
-      <div className="text-xl font-serif  font-bold tracking-wide pb-1">
-        {props.title}
-      </div>
+      <SectionHeader title={props.title} />
       {renderExperiences()}
     </div>
   );

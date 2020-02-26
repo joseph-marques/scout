@@ -22,11 +22,11 @@ function ScoutCard(props) {
         <Card>
           <div className="flex items-center pb-4">
             <UserIcon
-              className="w-12 h-12 rounded-full mr-4"
+              className="w-12 h-12 rounded-full ml-2 mr-4"
               alt={`Avatar of ${props.scout.firstName} ${props.scout.lastName}`}
             />
             <div>
-              <div className="font-serif font-bold text-black text-xl">
+              <div className="font-serif font-bold text-black text-2xl">
                 {`${props.scout.firstName} ${props.scout.lastName}`}
               </div>
               <div className="text-gray-700 text-sm -my-1">

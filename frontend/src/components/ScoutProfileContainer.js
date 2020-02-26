@@ -8,9 +8,10 @@ function ScoutProfileContainer() {
     id,
     firstName: 'Ike',
     lastName: 'Ziemann',
-    role: {
+    currentRole: {
       title: 'Sr. Consultant',
-      institution: 'Deloitte'
+      institution: 'Deloitte',
+      tenure: '2016 - present'
     },
     skills: ['Consulting Interviews', 'Business', 'Management Consulting'],
     reviews: {
@@ -18,8 +19,30 @@ function ScoutProfileContainer() {
       count: 48
     },
     experience: {
-      education: ['Bsc in economics from XX', 'Bsc in statistics from XX'],
-      work: ['YYY 2015 - today', 'XXX 2011 - 2015']
+      education: [
+        {
+          title: 'BSC in Economics',
+          institution: 'University of Chicago',
+          tenure: '2016 - 2018'
+        },
+        {
+          title: 'BSC in Statistics',
+          institution: 'University of Chicago',
+          tenure: '2012 - 2014'
+        }
+      ],
+      work: [
+        {
+          title: 'Sr. Consultant',
+          institution: 'Deloitte',
+          tenure: '2016 - present'
+        },
+        {
+          title: 'Associate Consultant',
+          institution: 'Pricewaterhouse Coopers',
+          tenure: '2014 - 2016'
+        }
+      ]
     }
   };
 
