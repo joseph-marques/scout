@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         logo: ['Fredoka One', 'sans-serif'],
-        sans: ['Open Sans', ...defaultTheme.fontFamily.sans]
+        serif: ['Crimson Text', ...defaultTheme.fontFamily.serif],
+        sans: ['Work Sans', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         primary: '#FF8789',

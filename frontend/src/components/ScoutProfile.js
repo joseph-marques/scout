@@ -1,39 +1,54 @@
 import React from 'react';
-import { ReactComponent as UserIcon } from '../icons/user-6.svg';
+import { ReactComponent as UserIcon } from '../icons/user-4.svg';
 import Card from './Card';
 import ExperienceSection from './ExperienceSection';
+import SectionHeader from './SectionHeader';
+import Rating from './Rating';
 
 function ScoutProfile(props) {
   return (
-    <div className="flex flex-col w-full py-8 content-center justify-center items-center">
-      <div className="w-2/3">
+    <div className="flex justify-center m-3">
+      <div className="w-1/2 p-3 max-w-lg">
         <Card>
-          <div className="flex content-center justify-center items-center">
-            <UserIcon className="mr-12" height={100} width={100} />
-            <div>
-              <div className="text-5xl font-serif -mb-2 font-bold tracking-wide">{`${props.firstName} ${props.lastName}`}</div>
-              <div className="text-xl tracking-wide text-gray-800">
-                {`${props.role.title}, ${props.role.institution}`}
+          <div className="flex content-center justify-center items-center p-4">
+            <UserIcon className="mr-8" height={90} width={90} />
+            <div className="flex flex-col justify-start">
+              <p className="text-3xl font-serif text-black font-bold tracking-wide -mb-2">
+                {`${props.firstName} ${props.lastName}`}
+              </p>
+              <p className="text-xl tracking-wide text-gray-800">
+                {`${props.currentRole.title}, ${props.currentRole.institution}`}
+              </p>
+              <div className="my-3">
+                <Rating {...props.reviews} />
               </div>
             </div>
           </div>
-          <hr className="my-6" />
-          <ExperienceSection
-            title={'Education'}
-            experiences={props.experience.education}
-          />
-          <hr className="my-6" />
-          <div>
-            <div className="text-2xl font-serif -mb-2 font-bold tracking-wide">
-              Experience
-            </div>
-            <div>YYY 2015 - today</div>
-            <div>XXX 2011 - 2015</div>
+          <br />
+          <div className="px-6">
+            <ExperienceSection
+              title={'Education'}
+              experiences={props.experience.education}
+            />
+            <br className="my-6" />
+            <ExperienceSection
+              title={'Work'}
+              experiences={props.experience.work}
+            />
           </div>
         </Card>
       </div>
-
-      <h1>{`Scout Profile ${props.id}`}</h1>
+      <div className="w-1/2 p-3">
+        <Card>
+          <SectionHeader title={'About Me'} />
+          <p>{props.bio}</p>
+        </Card>
+        <br />
+        <Card>
+          <SectionHeader title={'Start a Conversation'} />
+          three
+        </Card>
+      </div>
     </div>
   );
 }

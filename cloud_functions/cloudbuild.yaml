@@ -8,5 +8,5 @@ steps:
     args: ['go', 'test']
     dir: 'cloud_functions/functions'
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['functions', 'deploy', 'GraphQL-Handler', '--trigger-http', '--runtime', 'go111', '--allow-unauthenticated', '--entry-point', 'HandleGraphQL']
+    args: ['functions', 'deploy', 'GraphQL-Handler', '--trigger-http', '--runtime', 'go113', '--allow-unauthenticated', '--entry-point', 'HandleGraphQL']
     dir: 'cloud_functions/functions'
