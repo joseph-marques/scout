@@ -55,50 +55,10 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		return nil, err
 	}
 
-	si := ScoutInput{ID: args.ID}
-	if err := d.DataTo(&si); err != nil {
-		return nil, err
-	}
-	user := d.Data()
-
-	sr := &scoutResolver{
-		ID:    args.ID,
-		Roles: &[]*roleResolver{},
-	}
-
+	sr := &scoutResolver{}
 	if err := d.DataTo(sr); err != nil {
 		return nil, err
 	}
-	return sr, nil
-
-	if roles, ok := user["Roles"].([]interface{}); ok {
-		for _, role := range roles {
-			rc := role.(map[string]interface{})
-			t := rc["Title"].(string)
-			i := rc["Institution"].(string)
-			*sr.Roles = append(*sr.Roles, &roleResolver{
-				Title:       &t,
-				Institution: &i,
-			})
-		}
-	}
-
-	if fn, ok := user["FirstName"].(string); ok {
-		sr.FirstName = fn
-	}
-
-	if ln, ok := user["LastName"].(string); ok {
-		sr.LastName = ln
-	}
-
-	if skills, ok := user["Skills"].([]interface{}); ok {
-		skillStr := []string{}
-		for _, s := range skills {
-			skillStr = append(skillStr, s.(string))
-		}
-		sr.Skills = &skillStr
-	}
-
 	return sr, nil
 }
 
