@@ -11,8 +11,8 @@ type resolver struct{}
 
 type scoutResolver struct {
 	ID        graphql.ID
-	Firstname string           `firebase:"FirstName"`
-	Lastname  string           `firebase:"LastName"`
+	FirstName string           `firebase:"FirstName"`
+	LastName  string           `firebase:"LastName"`
 	Roles     *[]*roleResolver `firebase:"Roles"`
 	Skills    *[]string        `firebase:"Skills"`
 	// rating: ReviewSummary
@@ -54,13 +54,23 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if err != nil {
 		return nil, err
 	}
-
-	var sr scoutResolver
-	if err := d.DataTo(&sr); err != nil {
-		return nil, err
+	user := d.Data()
+	roles := []*roleResolver{}
+	for _, role := range user["Roles"].([]map[string]string) {
+		t := role["Title"]
+		i := role["Institution"]
+		roles = append(roles, &roleResolver{
+			Title:       &t,
+			Institution: &i,
+		})
 	}
-
-	return &sr, nil
+	return &scoutResolver{
+		ID:        args.ID,
+		FirstName: user["FirstName"].(string),
+		LastName:  user["LastName"].(string),
+		Roles:     &roles,
+		Skills:    user["Skills"].(*[]string),
+	}, nil
 }
 
 type RoleInput struct {
