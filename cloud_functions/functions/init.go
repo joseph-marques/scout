@@ -4,12 +4,14 @@ import (
 	"context"
 	"log"
 
+	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 )
 
 var h *relay.Handler
+var db *firestore.Client
 
 func init() {
 	s := SchemaString()
@@ -24,8 +26,9 @@ func init() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	db = client
 
 	opts := []graphql.SchemaOpt{graphql.UseFieldResolvers()}
-	schema := graphql.MustParseSchema(s, &query{db: client}, opts...)
+	schema := graphql.MustParseSchema(s, &resolver{}, opts...)
 	h = &relay.Handler{Schema: schema}
 }

@@ -4,38 +4,18 @@ import (
 	"context"
 	"net/http"
 
-	"cloud.google.com/go/firestore"
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
-type query struct {
-	db *firestore.Client
-}
+type resolver struct{}
 
 type scoutResolver struct {
 	Id        graphql.ID
 	Firstname string
 	Lastname  string
-	// roles: [Role!]
-	Skills *[]string
-	// rating: ReviewSummary
-}
-
-type RoleInput struct {
-	Title       *string
-	Institution *string
-}
-
-type ScoutInput struct {
-	ID        graphql.ID
-	Firstname *string
-	Lastname  *string
-	Roles     *[]RoleInput
+	Roles     *[]*roleResolver
 	Skills    *[]string
-}
-
-func (s *scoutResolver) Roles() *[]*roleResolver {
-	return nil
+	// rating: ReviewSummary
 }
 
 func (s *scoutResolver) Rating() *reviewSummaryResolver {
@@ -43,18 +23,8 @@ func (s *scoutResolver) Rating() *reviewSummaryResolver {
 }
 
 type roleResolver struct {
-	//title: String
-	//institution: String
-}
-
-func (r *roleResolver) Title() *string {
-	title := "title"
-	return &title
-}
-
-func (r *roleResolver) Institution() *string {
-	i := "place"
-	return &i
+	Title       *string
+	Institution *string
 }
 
 type reviewSummaryResolver struct {
@@ -75,34 +45,45 @@ func (r *reviewSummaryResolver) Count() *int32 {
 // ScoutQueryArgs are the arguments for the "scout" query.
 type ScoutQueryArgs struct {
 	// ID of the Scout.
-	Id graphql.ID
+	ID graphql.ID
 }
 
-func (_ *query) Hello() string {
-	return "Hello, world!"
-}
-
-func (q *query) Scout(ctx context.Context, args ScoutQueryArgs) *scoutResolver {
+func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolver, error) {
 	return &scoutResolver{
-		Id:        args.Id,
+		Id:        args.ID,
 		Firstname: "Bob",
 		Lastname:  "Bobert",
-	}
+	}, nil
+}
+
+type RoleInput struct {
+	Title       *string `firebase:"Title"`
+	Institution *string `firebase:"Institution"`
+}
+
+type ScoutInput struct {
+	ID        graphql.ID
+	Firstname *string      `firebase:"FirstName"`
+	Lastname  *string      `firebase:"LastName"`
+	Roles     *[]RoleInput `firebase:"Roles"`
+	Skills    *[]string    `firebase:"Skills"`
 }
 
 // UpdateScoutQueryArgs are the arguments for the "scout" query.
 type UpdateScoutQueryArgs struct {
 	// ID of the Scout.
-	Id    graphql.ID
+	ID    graphql.ID
 	Scout *ScoutInput
 }
 
-func (q *query) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) *scoutResolver {
-	return &scoutResolver{
-		Id:        args.Id,
-		Firstname: "Bob",
-		Lastname:  "Bobert",
+func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (*scoutResolver, error) {
+	// VERIFY PERMISSIONS HERE
+	doc := db.Collection("Users").Doc(string(args.ID))
+	_, err := doc.Set(ctx, args)
+	if err != nil {
+		return nil, err
 	}
+	return r.Scout(ctx, ScoutQueryArgs{ID: args.ID})
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
