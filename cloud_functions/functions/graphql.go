@@ -66,10 +66,10 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		Roles: &[]*roleResolver{},
 	}
 
-	if roles, ok := user["Roles"].([]map[string]string); ok {
+	if roles, ok := user["Roles"].([]map[string]interface{}); ok {
 		for _, role := range roles {
-			t := role["Title"]
-			i := role["Institution"]
+			t := role["Title"].(string)
+			i := role["Institution"].(string)
 			*sr.Roles = append(*sr.Roles, &roleResolver{
 				Title:       &t,
 				Institution: &i,
@@ -85,8 +85,12 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		sr.LastName = ln
 	}
 
-	if s, ok := user["Skills"].([]string); ok {
-		sr.Skills = &s
+	if skills, ok := user["Skills"].([]interface{}); ok {
+		skillStr := []string{}
+		for _, s := range skills {
+			skillStr = append(skillStr, s.(string))
+		}
+		sr.Skills = &skillStr
 	}
 
 	return sr, nil
