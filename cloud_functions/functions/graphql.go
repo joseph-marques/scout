@@ -23,8 +23,8 @@ func (s *scoutResolver) Rating() *reviewSummaryResolver {
 }
 
 type roleResolver struct {
-	Title       string
-	Institution string
+	Title       *string
+	Institution *string
 }
 
 type reviewSummaryResolver struct {
@@ -57,8 +57,8 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 }
 
 type RoleInput struct {
-	Title       string `firebase:"Title"`
-	Institution string `firebase:"Institution"`
+	Title       *string `firebase:"Title"`
+	Institution *string `firebase:"Institution"`
 }
 
 type ScoutInput struct {

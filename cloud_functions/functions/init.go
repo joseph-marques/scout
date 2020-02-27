@@ -1,11 +1,7 @@
 package scout
 
 import (
-	"context"
-	"log"
-
 	"cloud.google.com/go/firestore"
-	firebase "firebase.google.com/go"
 	graphql "github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 )
