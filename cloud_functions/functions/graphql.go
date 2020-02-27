@@ -73,6 +73,8 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 
 	if fn, ok := user["FirstName"].(string); ok {
 		sr.FirstName = fn
+	} else {
+		fmt.Println(user["FirstName"])
 	}
 
 	if ln, ok := user["LastName"].(string); ok {
