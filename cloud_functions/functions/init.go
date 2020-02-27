@@ -24,6 +24,8 @@ func init() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	schema := graphql.MustParseSchema(s, &query{db: client})
+
+	opts := []graphql.SchemaOpt{graphql.UseFieldResolvers()}
+	schema := graphql.MustParseSchema(s, &query{db: client}, opts...)
 	h = &relay.Handler{Schema: schema}
 }

@@ -13,11 +13,11 @@ type query struct {
 }
 
 type scoutResolver struct {
-	id        graphql.ID
-	firstname string
-	lastname  string
+	Id        graphql.ID
+	Firstname string
+	Lastname  string
 	// roles: [Role!]
-	// skills: [String!]
+	Skills *[]string
 	// rating: ReviewSummary
 }
 
@@ -34,25 +34,7 @@ type ScoutInput struct {
 	Skills    *[]string
 }
 
-func (s *scoutResolver) Id() graphql.ID {
-	return s.id
-}
-
-func (s *scoutResolver) Firstname() string {
-	name := "bob"
-	return name
-}
-
-func (s *scoutResolver) Lastname() string {
-	name := "bobert"
-	return name
-}
-
 func (s *scoutResolver) Roles() *[]*roleResolver {
-	return nil
-}
-
-func (s *scoutResolver) Skills() *[]string {
 	return nil
 }
 
@@ -101,7 +83,11 @@ func (_ *query) Hello() string {
 }
 
 func (q *query) Scout(ctx context.Context, args ScoutQueryArgs) *scoutResolver {
-	return &scoutResolver{}
+	return &scoutResolver{
+		Id:        args.Id,
+		Firstname: "Bob",
+		Lastname:  "Bobert",
+	}
 }
 
 // UpdateScoutQueryArgs are the arguments for the "scout" query.
@@ -112,7 +98,11 @@ type UpdateScoutQueryArgs struct {
 }
 
 func (q *query) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) *scoutResolver {
-	return &scoutResolver{}
+	return &scoutResolver{
+		Id:        args.Id,
+		Firstname: "Bob",
+		Lastname:  "Bobert",
+	}
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
