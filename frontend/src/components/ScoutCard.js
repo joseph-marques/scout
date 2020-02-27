@@ -3,16 +3,12 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../icons/user-4.svg';
 import Rating from './Rating';
 import Card from './Card';
+import Skill from './Skill';
 
 function ScoutCard(props) {
   const renderSkills = () => {
     return props.scout.skills.map((skill, i) => (
-      <span
-        key={i}
-        className="inline-block bg-gray-200 rounded-full px-3 py-1 my-1 text-xs font-semibold text-gray-700 mr-2"
-      >
-        {skill}
-      </span>
+      <Skill key={i} title={skill} />
     ));
   };
 
@@ -43,7 +39,7 @@ function ScoutCard(props) {
           </div>
           <div className="px-0 py-4">{renderSkills()}</div>
           <hr className="py-2" />
-          <Rating {...props.scout.reviews} />
+          <Rating {...props.scout.reviewSummary} />
         </Card>
       </Link>
     </div>

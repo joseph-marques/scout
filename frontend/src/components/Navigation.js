@@ -3,6 +3,38 @@ import { Link, NavLink } from 'react-router-dom';
 import { ReactComponent as SettingsIcon } from '../icons/settings-5.svg';
 
 function Navigation() {
+  const renderNavLink = ({ title, link, exact = false }) => {
+    return (
+      <div className="font-semibold tracking-wide text-black text-sm hover:text-white mx-4 py-1 sm:mx-6">
+        <NavLink
+          to={link}
+          exact={exact}
+          className="py-1 h-10 px-2"
+          style={{ paddingTop: '0.35rem' }}
+          activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
+        >
+          {title}
+        </NavLink>
+      </div>
+    );
+  };
+
+  const renderSubHeader = () => {
+    return (
+      <div
+        className="flex items-center flex-start flex-wrap m-0 p-0"
+        style={{
+          background:
+            'linear-gradient(to right, #f2c3a5, #f6b598, #faa78f, #fd978a, #ff8789)'
+        }}
+      >
+        {renderNavLink({ title: 'Home', link: '/', exact: true })}
+        {renderNavLink({ title: 'Find a Scout', link: '/scouts' })}
+        {renderNavLink({ title: 'My Profile', link: '/settings' })}
+      </div>
+    );
+  };
+
   return (
     <nav className="shadow-lg z-50">
       <div className="flex items-center justify-between flex-wrap p-3 px-10 bg-black">
@@ -18,55 +50,7 @@ function Navigation() {
           logout
         </a>
       </div>
-      <div
-        className="flex items-center justify-between flex-wrap p-1 px-10"
-        style={{
-          background:
-            'linear-gradient(to right, #f2c3a5, #f6b598, #faa78f, #fd978a, #ff8789)'
-        }}
-      >
-        <div className="w-full block flex-grow md:flex md:items-end md:w-auto">
-          <div className="md:flex-grow flex">
-            <div
-              href="#responsive-header"
-              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
-            >
-              <NavLink
-                to="/"
-                exact={true}
-                className="py-1 px-0 sm:px-2"
-                activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
-              >
-                Home
-              </NavLink>
-            </div>
-            <div
-              href="#responsive-header"
-              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
-            >
-              <NavLink
-                to="/scouts"
-                className="py-1 px-0 sm:px-2"
-                activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
-              >
-                Find a Scout
-              </NavLink>
-            </div>
-            <div
-              href="#responsive-header"
-              className="block font-semibold text-black text-sm hover:text-white mx-4 sm:mx-6"
-            >
-              <NavLink
-                to="/settings"
-                className="py-1 px-0 sm:px-2"
-                activeClassName="border-t-4 border-white rounded transition-all duration-300 ease-in-out"
-              >
-                My Profile
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      </div>
+      {renderSubHeader()}
     </nav>
   );
 }

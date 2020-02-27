@@ -13,7 +13,7 @@ function ScoutListContainer() {
           institution: 'Deloitte'
         },
         skills: ['Consulting Interviews', 'Business', 'Management Consulting'],
-        reviews: {
+        reviewSummary: {
           rating: 3.8,
           count: 48
         }
@@ -31,7 +31,7 @@ function ScoutListContainer() {
           'Software Engineering Interviews',
           'Technology'
         ],
-        reviews: {
+        reviewSummary: {
           rating: 4.3,
           count: 12
         }
@@ -45,7 +45,7 @@ function ScoutListContainer() {
           institution: 'Goldman Sachs'
         },
         skills: ['Resume Review', 'Business'],
-        reviews: {
+        reviewSummary: {
           rating: 5.0,
           count: 7
         }
@@ -63,7 +63,7 @@ function ScoutListContainer() {
           'Resume Review',
           'Public Policy'
         ],
-        reviews: {
+        reviewSummary: {
           rating: 4.2,
           count: 98
         }
@@ -77,7 +77,7 @@ function ScoutListContainer() {
           institution: 'Google'
         },
         skills: ['Data Science', 'Technology'],
-        reviews: {
+        reviewSummary: {
           rating: 3.4,
           count: 64
         }
