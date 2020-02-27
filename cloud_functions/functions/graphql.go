@@ -2,7 +2,6 @@ package scout
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	graphql "github.com/graph-gophers/graphql-go"
@@ -60,16 +59,11 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if err := d.DataTo(&si); err != nil {
 		return nil, err
 	}
-	user := d.Data()
-
-	fmt.Printf("%+v", si)
-	fmt.Printf("%+v", user)
+	user := d.Data()["Scout"]
 
 	sr := &scoutResolver{
-		ID:        args.ID,
-		FirstName: si.FirstName,
-		LastName:  si.LastName,
-		Roles:     &[]*roleResolver{},
+		ID:    args.ID,
+		Roles: &[]*roleResolver{},
 	}
 
 	if roles, ok := user["Roles"].([]map[string]string); ok {
@@ -85,10 +79,6 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 
 	if fn, ok := user["FirstName"].(string); ok {
 		sr.FirstName = fn
-	} else {
-		fmt.Printf("%+v", sr)
-		fmt.Println(user["FirstName"])
-		fmt.Printf("%T", user["FirstName"])
 	}
 
 	if ln, ok := user["LastName"].(string); ok {
