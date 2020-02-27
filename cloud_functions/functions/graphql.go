@@ -56,13 +56,15 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	}
 	user := d.Data()
 	roles := []*roleResolver{}
-	for _, role := range user["Roles"].([]map[string]string) {
-		t := role["Title"]
-		i := role["Institution"]
-		roles = append(roles, &roleResolver{
-			Title:       &t,
-			Institution: &i,
-		})
+	if user["Roles"] != nil 
+		for _, role := range user["Roles"].([]map[string]string) {
+			t := role["Title"]
+			i := role["Institution"]
+			roles = append(roles, &roleResolver{
+				Title:       &t,
+				Institution: &i,
+			})
+		}
 	}
 	return &scoutResolver{
 		ID:        args.ID,
