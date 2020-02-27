@@ -66,10 +66,11 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		Roles: &[]*roleResolver{},
 	}
 
-	if roles, ok := user["Roles"].([]map[string]interface{}); ok {
+	if roles, ok := user["Roles"].([]interface{}); ok {
 		for _, role := range roles {
-			t := role["Title"].(string)
-			i := role["Institution"].(string)
+			rc := role.(map[string]interface{})
+			t := rc["Title"].(string)
+			i := rc["Institution"].(string)
 			*sr.Roles = append(*sr.Roles, &roleResolver{
 				Title:       &t,
 				Institution: &i,
