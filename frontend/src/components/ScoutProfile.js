@@ -33,16 +33,16 @@ function ScoutProfile(props) {
   const renderReviews = () => {};
 
   return (
-    <div className="flex justify-center">
-      <div className="w-1/2 p-3 max-w-lg">
+    <div className="flex flex-col lg:flex-row justify-center align-center items-center lg:items-start">
+      <div className="p-3 w-full lg:w-1/2 max-w-lg">
         <Card>
-          <div className="flex content-center justify-center items-center p-4 pb-0">
-            <UserIcon className="mr-8" height={90} width={90} />
+          <div className="flex flex-col xl:flex-row content-center justify-center items-center xl:items-start p-4 mb-6 pb-0">
+            <UserIcon className="xl:mr-8" height={90} width={90} />
             <div className="flex flex-col justify-center">
-              <p className="text-3xl font-serif text-black font-bold tracking-wide -mb-2">
+              <p className="text-xl lg:text-3xl font-serif text-center xl:text-left text-black font-bold tracking-wide -mb-2">
                 {`${props.firstName} ${props.lastName}`}
               </p>
-              <p className="text-lg tracking-wide text-gray-700">
+              <p className="text-md lg:text-lg tracking-wide text-gray-700">
                 {`${props.currentRole.title}, ${props.currentRole.institution}`}
               </p>
               <div className="my-3">
@@ -63,7 +63,7 @@ function ScoutProfile(props) {
           </div>
         </Card>
       </div>
-      <div className="w-1/2 p-3">
+      <div className="p-3 w-full l:w-1/2r max-w-lg lg:max-w-2xl">
         <Card>
           <SectionHeader title={'About'} />
           <p className="my-4 text-gray-700">{props.bio}</p>
