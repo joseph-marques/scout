@@ -59,6 +59,7 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if err := d.DataTo(&si); err != nil {
 		return nil, err
 	}
+	user := d.Data()
 
 	sr := &scoutResolver{
 		ID:    args.ID,
