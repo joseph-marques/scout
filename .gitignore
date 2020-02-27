@@ -1,1 +1,2 @@
 cloud_functions/functions/bindata.go
+cloud_functions/functions/cmd/cmd
