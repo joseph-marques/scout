@@ -66,6 +66,11 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		Roles: &[]*roleResolver{},
 	}
 
+	if err := d.DataTo(sr); err != nil {
+		return nil, err
+	}
+	return sr, nil
+
 	if roles, ok := user["Roles"].([]interface{}); ok {
 		for _, role := range roles {
 			rc := role.(map[string]interface{})
