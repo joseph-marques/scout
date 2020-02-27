@@ -60,8 +60,8 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if err := d.DataTo(&si); err != nil {
 		return nil, err
 	}
-	fmt.printf("%+v", si)
-	fmt.printf("%+v", user)
+	fmt.Printf("%+v", si)
+	fmt.Printf("%+v", user)
 
 	sr := &scoutResolver{
 		ID:        args.ID,
