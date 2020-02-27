@@ -3,6 +3,7 @@ package scout
 import (
 	"context"
 	"net/http"
+	"fmt"
 
 	graphql "github.com/graph-gophers/graphql-go"
 )
