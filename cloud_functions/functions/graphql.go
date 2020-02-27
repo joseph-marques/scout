@@ -85,8 +85,8 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		sr.LastName = ln
 	}
 
-	if s, ok := user["Skills"].(*[]string); ok {
-		sr.Skills = s
+	if s, ok := user["Skills"].([]string); ok {
+		sr.Skills = &s
 	}
 
 	return sr, nil
