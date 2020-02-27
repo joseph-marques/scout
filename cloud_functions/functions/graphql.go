@@ -82,7 +82,7 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if fn, ok := user["FirstName"].(string); ok {
 		sr.FirstName = fn
 	} else {
-		fmt.Println(*sr)
+		fmt.Printf("%+v", sr)
 		fmt.Println(user["FirstName"])
 	}
 
