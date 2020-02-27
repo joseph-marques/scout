@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"reflect"
 
 	graphql "github.com/graph-gophers/graphql-go"
 )
@@ -89,7 +88,7 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	} else {
 		fmt.Printf("%+v", sr)
 		fmt.Println(user["FirstName"])
-		fmt.Println(reflect.TypeOf(user["FirstName"]).String())
+		fmt.Printf("%T", user["FirstName"])
 	}
 
 	if ln, ok := user["LastName"].(string); ok {
