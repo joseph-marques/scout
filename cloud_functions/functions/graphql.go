@@ -10,11 +10,11 @@ import (
 type resolver struct{}
 
 type scoutResolver struct {
-	Id        graphql.ID
-	Firstname string
-	Lastname  string
-	Roles     *[]*roleResolver
-	Skills    *[]string
+	ID        graphql.ID
+	Firstname string           `firebase:"FirstName"`
+	Lastname  string           `firebase:"LastName"`
+	Roles     *[]*roleResolver `firebase:"Roles"`
+	Skills    *[]string        `firebase:"Skills"`
 	// rating: ReviewSummary
 }
 
@@ -23,8 +23,8 @@ func (s *scoutResolver) Rating() *reviewSummaryResolver {
 }
 
 type roleResolver struct {
-	Title       *string
-	Institution *string
+	Title       *string `firebase:"Title"`
+	Institution *string `firebase:"Institution"`
 }
 
 type reviewSummaryResolver struct {
@@ -49,11 +49,18 @@ type ScoutQueryArgs struct {
 }
 
 func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolver, error) {
-	return &scoutResolver{
-		Id:        args.ID,
-		Firstname: "Bob",
-		Lastname:  "Bobert",
-	}, nil
+	doc := db.Collection("Users").Doc(string(args.ID))
+	d, err := doc.Get(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	var sr scoutResolver
+	if err := d.DataTo(&sr); err != nil {
+		return nil, err
+	}
+
+	return &sr, nil
 }
 
 type RoleInput struct {
