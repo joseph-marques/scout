@@ -15,6 +15,10 @@ var db *firestore.Client
 
 func init() {
 	s := SchemaString()
+	opts := []graphql.SchemaOpt{graphql.UseFieldResolvers()}
+	schema := graphql.MustParseSchema(s, &resolver{}, opts...)
+	h = &relay.Handler{Schema: schema}
+
 	ctx := context.Background()
 	conf := &firebase.Config{ProjectID: "scout-268717"}
 	app, err := firebase.NewApp(ctx, conf)
@@ -27,8 +31,4 @@ func init() {
 		log.Fatalln(err)
 	}
 	db = client
-
-	opts := []graphql.SchemaOpt{graphql.UseFieldResolvers()}
-	schema := graphql.MustParseSchema(s, &resolver{}, opts...)
-	h = &relay.Handler{Schema: schema}
 }

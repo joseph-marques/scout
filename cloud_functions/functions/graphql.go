@@ -66,10 +66,18 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 			})
 		}
 	}
+	fn := ""
+	if user["FirstName"] != nil {
+		fn = user["FirstName"].(string)
+	}
+	ln := ""
+	if user["LastName"] != nil {
+		ln = user["LastName"].(string)
+	}
 	return &scoutResolver{
 		ID:        args.ID,
-		FirstName: user["FirstName"].(string),
-		LastName:  user["LastName"].(string),
+		FirstName: fn,
+		LastName:  ln,
 		Roles:     &roles,
 		Skills:    user["Skills"].(*[]string),
 	}, nil
