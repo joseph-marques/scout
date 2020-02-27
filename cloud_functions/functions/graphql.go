@@ -23,8 +23,8 @@ func (s *scoutResolver) Rating() *reviewSummaryResolver {
 }
 
 type roleResolver struct {
-	Title       *string
-	Institution *string
+	Title       string
+	Institution string
 }
 
 type reviewSummaryResolver struct {
@@ -57,33 +57,32 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 }
 
 type RoleInput struct {
-	Title       *string `firebase:"Title"`
-	Institution *string `firebase:"Institution"`
+	Title       string `firebase:"Title"`
+	Institution string `firebase:"Institution"`
 }
 
 type ScoutInput struct {
 	ID        graphql.ID
-	Firstname *string      `firebase:"FirstName"`
-	Lastname  *string      `firebase:"LastName"`
+	Firstname string       `firebase:"FirstName"`
+	Lastname  string       `firebase:"LastName"`
 	Roles     *[]RoleInput `firebase:"Roles"`
 	Skills    *[]string    `firebase:"Skills"`
 }
 
 // UpdateScoutQueryArgs are the arguments for the "scout" query.
 type UpdateScoutQueryArgs struct {
-	// ID of the Scout.
-	ID    graphql.ID
+	// The scout to update.
 	Scout *ScoutInput
 }
 
 func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (*scoutResolver, error) {
 	// VERIFY PERMISSIONS HERE
-	doc := db.Collection("Users").Doc(string(args.ID))
+	doc := db.Collection("Users").Doc(string(args.Scout.ID))
 	_, err := doc.Set(ctx, args)
 	if err != nil {
 		return nil, err
 	}
-	return r.Scout(ctx, ScoutQueryArgs{ID: args.ID})
+	return r.Scout(ctx, ScoutQueryArgs{ID: args.Scout.ID})
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {

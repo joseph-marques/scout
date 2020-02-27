@@ -3,7 +3,7 @@ type Query {
 }
 
 type Mutation {
-    updateScout(id: ID!, scout: ScoutInput!): Scout!
+    updateScout(scout: ScoutInput!): Scout!
 }
 
 input ScoutInput {
