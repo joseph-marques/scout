@@ -59,7 +59,6 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if err := d.DataTo(&si); err != nil {
 		return nil, err
 	}
-	user := d.Data()["Scout"]
 
 	sr := &scoutResolver{
 		ID:    args.ID,
@@ -114,7 +113,7 @@ type UpdateScoutQueryArgs struct {
 func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (*scoutResolver, error) {
 	// VERIFY PERMISSIONS HERE
 	doc := db.Collection("Users").Doc(string(args.Scout.ID))
-	_, err := doc.Set(ctx, args)
+	_, err := doc.Set(ctx, args.Scout)
 	if err != nil {
 		return nil, err
 	}
