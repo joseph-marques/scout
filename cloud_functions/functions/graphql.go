@@ -2,8 +2,8 @@ package scout
 
 import (
 	"context"
-	"net/http"
 	"fmt"
+	"net/http"
 
 	graphql "github.com/graph-gophers/graphql-go"
 )
@@ -56,9 +56,16 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		return nil, err
 	}
 	user := d.Data()
+	si := ScoutInput{ID: args.ID}
+	if err := d.DataTo(&si); err != nil {
+		return nil, err
+	}
+
 	sr := &scoutResolver{
-		ID:    args.ID,
-		Roles: &[]*roleResolver{},
+		ID:        args.ID,
+		FirstName: si.FirstName,
+		LastName:  si.LastName,
+		Roles:     &[]*roleResolver{},
 	}
 
 	if roles, ok := user["Roles"].([]map[string]string); ok {
@@ -96,8 +103,8 @@ type RoleInput struct {
 
 type ScoutInput struct {
 	ID        graphql.ID
-	Firstname string       `firebase:"FirstName"`
-	Lastname  string       `firebase:"LastName"`
+	FirstName string       `firebase:"FirstName"`
+	LastName  string       `firebase:"LastName"`
 	Roles     *[]RoleInput `firebase:"Roles"`
 	Skills    *[]string    `firebase:"Skills"`
 }
