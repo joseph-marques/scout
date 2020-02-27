@@ -55,32 +55,32 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 		return nil, err
 	}
 	user := d.Data()
-	roles := []*roleResolver{}
+	sr := &scoutResolver{ID: args.ID}
+
 	if user["Roles"] != nil {
 		for _, role := range user["Roles"].([]map[string]string) {
 			t := role["Title"]
 			i := role["Institution"]
-			roles = append(roles, &roleResolver{
+			sr.Roles = append(sr.Roles, &roleResolver{
 				Title:       &t,
 				Institution: &i,
 			})
 		}
 	}
-	fn := ""
-	if user["FirstName"] != nil {
-		fn = user["FirstName"].(string)
+
+	if fn, ok := user["FirstName"].(string); ok {
+		sr.FirstName = fn
 	}
-	ln := ""
-	if user["LastName"] != nil {
-		ln = user["LastName"].(string)
+
+	if ln, ok := user["LastName"].(string); ok {
+		sr.LastName = ln
 	}
-	return &scoutResolver{
-		ID:        args.ID,
-		FirstName: fn,
-		LastName:  ln,
-		Roles:     &roles,
-		Skills:    user["Skills"].(*[]string),
-	}, nil
+
+	if s, ok := user["Skills"].(*[]string); ok {
+		sr.Skills = s
+	}
+
+	return sr, nil
 }
 
 type RoleInput struct {
