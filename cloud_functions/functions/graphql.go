@@ -82,6 +82,7 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	if fn, ok := user["FirstName"].(string); ok {
 		sr.FirstName = fn
 	} else {
+		fmt.Println(*sr)
 		fmt.Println(user["FirstName"])
 	}
 
@@ -102,7 +103,7 @@ type RoleInput struct {
 }
 
 type ScoutInput struct {
-	ID        graphql.ID
+	ID        graphql.ID   `firebase:"-"`
 	FirstName string       `firebase:"FirstName"`
 	LastName  string       `firebase:"LastName"`
 	Roles     *[]RoleInput `firebase:"Roles"`
