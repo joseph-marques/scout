@@ -4,6 +4,7 @@ type Query {
 
 type Mutation {
     updateScout(scout: ScoutInput!): Scout!
+    reviewScout(review: ReviewInput!)
 }
 
 input ScoutInput {
@@ -19,6 +20,13 @@ input RoleInput {
     institution: String
 }
 
+input ReviewInput {
+    author: ID!
+    subject: ID!
+    rating: Float!
+    text: String
+}
+
 type Scout {
     id: ID!
     firstname: String!
@@ -26,6 +34,7 @@ type Scout {
     roles: [Role!]
     skills: [String!]
     rating: ReviewSummary
+    reviews: [Review!]
 }
 
 type Role {
@@ -36,4 +45,11 @@ type Role {
 type ReviewSummary {
     rating: Float
     count: Int
+}
+
+type Review {
+    author: ID!
+    subject: ID!
+    rating: Float!
+    text: String
 }

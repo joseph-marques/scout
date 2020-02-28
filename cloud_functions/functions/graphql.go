@@ -10,7 +10,7 @@ import (
 type resolver struct{}
 
 type scoutResolver struct {
-	ID        graphql.ID
+	ID        graphql.ID       `firebase:"ID"`
 	FirstName string           `firebase:"FirstName"`
 	LastName  string           `firebase:"LastName"`
 	Roles     *[]*roleResolver `firebase:"Roles"`
@@ -68,7 +68,7 @@ type RoleInput struct {
 }
 
 type ScoutInput struct {
-	ID        graphql.ID   `firebase:"-"`
+	ID        graphql.ID   `firebase:"ID"`
 	FirstName string       `firebase:"FirstName"`
 	LastName  string       `firebase:"LastName"`
 	Roles     *[]RoleInput `firebase:"Roles"`
@@ -89,6 +89,24 @@ func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (
 		return nil, err
 	}
 	return r.Scout(ctx, ScoutQueryArgs{ID: args.Scout.ID})
+}
+
+type ReviewScoutArgs struct {
+	Review *ReviewInput
+}
+
+type ReviewInput struct {
+	Author  graphql.ID `firebase:"Author"`
+	Subject graphql.ID `firebase:"Subject"`
+	Rating  int32      `firebase:"Rating"`
+	Text    string     `firebase:"Text"`
+}
+
+func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) error {
+	// ADD AUTHENTICATION HERE
+	doc := db.Collection("Users").Doc(string(args.Review.Subject)).Collection("Reviews").Doc(string(args.Review.Author))
+	_, err := doc.Set(ctx, args.Review)
+	return err
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
