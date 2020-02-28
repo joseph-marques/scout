@@ -23,7 +23,7 @@ input RoleInput {
 input ReviewInput {
     author: ID!
     subject: ID!
-    rating: Float!
+    rating: Int!
     text: String
 }
 
