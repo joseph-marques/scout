@@ -98,7 +98,7 @@ type ReviewScoutArgs struct {
 type ReviewInput struct {
 	Author  graphql.ID `firebase:"Author"`
 	Subject graphql.ID `firebase:"Subject"`
-	Rating  *float64   `firebase:"Rating"`
+	Rating  float64    `firebase:"Rating"`
 	Text    *string    `firebase:"Text"`
 }
 
