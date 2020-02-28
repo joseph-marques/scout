@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../icons/user-4.svg';
-import Rating from './Rating';
+import FullRating from './FullRating';
 import Card from './Card';
 import Skill from './Skill';
 
@@ -39,7 +39,7 @@ function ScoutCard(props) {
           </div>
           <div className="px-0 py-4">{renderSkills()}</div>
           <hr className="py-2" />
-          <Rating {...props.scout.reviewSummary} />
+          <FullRating {...props.scout.reviewSummary} />
         </Card>
       </Link>
     </div>

@@ -59,14 +59,19 @@ function ScoutProfileContainer() {
         title: 'Consulting Industry Discussion',
         description: `
           I'll sit down with you for an hour and discuss my experience
-          in the industry and answer any questions you might have.
+          in the industry and answer any questions you might have. This 
+          opportunity is only available to those local to Chicago as it's 
+          much easier and more natural to do in-person.
         `,
         price: 'Buy Me a 🍺'
       },
       {
         title: 'Consulting Interview Prep',
         description: `
-          I will spend an hour helping you prep for consulting intervirews
+          I will spend an hour helping you prep for consulting interviews. I 
+          can draw on my past experiences and give you tips on how to improve 
+          your responses. We can either do this in-person on over video chat 
+          depending on your preference.
         `,
         price: '$25'
       }
@@ -77,7 +82,7 @@ function ScoutProfileContainer() {
         rating: 4.0,
         description: `
           I grabbed a beer with Ike in Chicago. Speaking with him was great! He was
-          super helpful and I walked away with a better understanding of the consulting
+          super helpful, and I walked away with a better understanding of the consulting
           interview process.
         `
       }

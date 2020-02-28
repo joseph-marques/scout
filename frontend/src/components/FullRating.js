@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactComponent as Star } from '../icons/star-1.svg';
 
-function Rating(props) {
+function FullRating(props) {
   const renderStars = () => {
     const numStars = Math.round(props.rating);
     return Array.from(Array(numStars), (_, i) => (
@@ -24,4 +24,4 @@ function Rating(props) {
   );
 }
 
-export default Rating;
+export default FullRating;
