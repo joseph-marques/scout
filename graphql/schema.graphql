@@ -4,7 +4,7 @@ type Query {
 
 type Mutation {
     updateScout(scout: ScoutInput!): Scout!
-    reviewScout(review: ReviewInput!)
+    reviewScout(review: ReviewInput!): Boolean!
 }
 
 input ScoutInput {
@@ -34,7 +34,6 @@ type Scout {
     roles: [Role!]
     skills: [String!]
     rating: ReviewSummary
-    reviews: [Review!]
 }
 
 type Role {

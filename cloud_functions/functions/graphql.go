@@ -98,15 +98,18 @@ type ReviewScoutArgs struct {
 type ReviewInput struct {
 	Author  graphql.ID `firebase:"Author"`
 	Subject graphql.ID `firebase:"Subject"`
-	Rating  int32      `firebase:"Rating"`
-	Text    string     `firebase:"Text"`
+	Rating  *int32     `firebase:"Rating"`
+	Text    *string    `firebase:"Text"`
 }
 
-func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) error {
+func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool, error) {
 	// ADD AUTHENTICATION HERE
 	doc := db.Collection("Users").Doc(string(args.Review.Subject)).Collection("Reviews").Doc(string(args.Review.Author))
 	_, err := doc.Set(ctx, args.Review)
-	return err
+	if err != nil {
+		return false, err
+	}
+	return true, err
 }
 
 func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
