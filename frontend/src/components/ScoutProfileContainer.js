@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import ScoutProfile from './ScoutProfile';
+import ScrollToTop from './ScrollToTop';
 
 function ScoutProfileContainer() {
   const { id } = useParams();
@@ -89,7 +90,12 @@ function ScoutProfileContainer() {
     ]
   };
 
-  return <ScoutProfile {...data} />;
+  return (
+    <Fragment>
+      <ScrollToTop />
+      <ScoutProfile {...data} />;
+    </Fragment>
+  );
 }
 
 export default ScoutProfileContainer;

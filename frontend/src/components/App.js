@@ -14,9 +14,7 @@ function App() {
         <Navigation />
         <div className="flex-grow overflow-auto">
           <Switch>
-            <Route path="/scouts/:id">
-              <ScoutProfileContainer />
-            </Route>
+            <Route path="/scouts/:id" children={<ScoutProfileContainer />} />
             <Route path="/scouts">
               <ScoutListContainer />
             </Route>

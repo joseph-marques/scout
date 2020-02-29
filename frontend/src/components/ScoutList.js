@@ -16,7 +16,7 @@ function ScoutList(props) {
   };
 
   return (
-    <div className="flex flex-wrap overflow-hidden px-4 py-4">
+    <div className="flex flex-wrap overflow-hidden md:px-4 py-4">
       {renderScouts()}
     </div>
   );

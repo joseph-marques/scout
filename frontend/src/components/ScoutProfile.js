@@ -19,7 +19,7 @@ function ScoutProfile(props) {
           <p className="text-black font-medium">{service.title}</p>
           <div className="w-1/3 m:w-1/4 pl-2 ml-2">
             <a
-              href="#"
+              href="/"
               className="block text-center text-sm text-primary font-bold px-4 py-2 leading-none border-2 rounded border-primary hover:border-transparent hover:text-white hover:bg-primary mt-4 md:mt-2"
             >
               {service.price}

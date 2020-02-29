@@ -6,8 +6,7 @@ function SectionHeader({ title }) {
       <p className="text-xl text-black font-serif  font-bold tracking-wide -mb-4">
         {title}
       </p>
-      <br />
-      <hr />
+      <hr className="mt-4" />
     </Fragment>
   );
 }

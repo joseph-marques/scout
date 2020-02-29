@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { ReactComponent as SettingsIcon } from '../icons/settings-5.svg';
 
 function Navigation() {
   const renderNavLink = ({ title, link, exact = false }) => {
@@ -44,7 +43,7 @@ function Navigation() {
           </span>
         </div>
         <a
-          href="#"
+          href="/"
           className="inline-block text-sm font-bold font-logo px-4 py-2 leading-none border-2 rounded text-white border-white hover:border-transparent hover:text-primary hover:bg-white mt-4 md:mt-2"
         >
           logout
