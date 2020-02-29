@@ -7,7 +7,7 @@ function ScoutList(props) {
       return (
         <div
           key={scout.id}
-          className="my-1 px-1 w-full overflow-hidden sm:w-1/2 md:w-1/2 lg:w-1/3"
+          className="px-1 w-full overflow-hidden sm:w-1/2 md:w-1/2 lg:w-1/3"
         >
           <ScoutCard scout={scout} />
         </div>
@@ -16,7 +16,9 @@ function ScoutList(props) {
   };
 
   return (
-    <div className="flex flex-wrap overflow-hidden px-4">{renderScouts()}</div>
+    <div className="flex flex-wrap overflow-hidden px-4 py-4">
+      {renderScouts()}
+    </div>
   );
 }
 

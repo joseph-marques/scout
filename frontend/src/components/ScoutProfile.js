@@ -5,6 +5,7 @@ import ExperienceSection from './ExperienceSection';
 import SectionHeader from './SectionHeader';
 import FullRating from './FullRating';
 import Skill from './Skill';
+import Review from './Review';
 
 function ScoutProfile(props) {
   const renderSkills = () => {
@@ -31,17 +32,7 @@ function ScoutProfile(props) {
   };
 
   const renderReviews = () => {
-    return props.reviews.map((review, i) => (
-      <div className="flex justify-start" key={i}>
-        <div className="flex flex-col w-1/6 flex-none">
-          <p className="text-black font-medium pr-4">{review.name}</p>
-        </div>
-        <div className="flex flex-col flex-auto">
-          <p>{review.rating}</p>
-          <p className="text-sm text-gray-700">{review.description}</p>
-        </div>
-      </div>
-    ));
+    return props.reviews.map((review, i) => <Review key={i} review={review} />);
   };
 
   return (
@@ -58,7 +49,7 @@ function ScoutProfile(props) {
                 {`${props.currentRole.title}, ${props.currentRole.institution}`}
               </p>
               <div className="my-3">
-                <FullRating {...props.reviewSummary} />
+                <FullRating {...props.reviewSummary} size={4} />
               </div>
             </div>
           </div>

@@ -1,24 +1,17 @@
 import React from 'react';
-import { ReactComponent as Star } from '../icons/star-1.svg';
+import StarRating from './StarRating';
 
-function FullRating(props) {
-  const renderStars = () => {
-    const numStars = Math.round(props.rating);
-    return Array.from(Array(numStars), (_, i) => (
-      <Star key={i} className="w-3 h-3 mr-1" />
-    ));
-  };
-
+function FullRating({ rating, count, size = 3 }) {
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex flex-1 items-center justify-center">
+    <div className="flex items-center justify-center justify-center content-center">
+      <div className="flex flex-1 items-center content-center justify-center">
         <span className="pr-3 text-sm text-gray-700">
-          {parseFloat(props.rating).toFixed(1)}
+          {parseFloat(rating).toFixed(1)}
         </span>
-        {renderStars()}
+        <StarRating numStars={rating} size={size} />
       </div>
       <div className="flex-1 text-sm text-gray-700 text-center">
-        {`${props.count} reviews`}
+        {`${count} reviews`}
       </div>
     </div>
   );
