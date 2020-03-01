@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Firebase from './Firebase';
 
 function Navigation() {
   const renderNavLink = ({ title, link, exact = false }) => {
@@ -27,7 +28,7 @@ function Navigation() {
             'linear-gradient(to right, #f2c3a5, #f6b598, #faa78f, #fd978a, #ff8789)'
         }}
       >
-        {renderNavLink({ title: 'Home', link: '/', exact: true })}
+        {renderNavLink({ title: 'Home', link: '/home', exact: true })}
         {renderNavLink({ title: 'Find a Scout', link: '/scouts' })}
         {renderNavLink({ title: 'My Profile', link: '/settings' })}
       </div>
@@ -42,12 +43,12 @@ function Navigation() {
             <Link to="/">scout</Link>
           </span>
         </div>
-        <a
-          href="/"
-          className="inline-block text-sm font-bold font-logo px-4 py-2 leading-none border-2 rounded text-white border-white hover:border-transparent hover:text-primary hover:bg-white mt-4 md:mt-2"
+        <button
+          className="inline-block text-sm font-logo px-4 py-2 leading-none border-2 rounded text-white border-white hover:border-transparent hover:text-primary hover:bg-white mt-4 md:mt-2"
+          onClick={() => Firebase.auth().signOut()}
         >
           logout
-        </a>
+        </button>
       </div>
       {renderSubHeader()}
     </nav>
