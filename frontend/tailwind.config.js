@@ -9,7 +9,8 @@ module.exports = {
         sans: ['Work Sans', ...defaultTheme.fontFamily.sans]
       },
       colors: {
-        primary: '#FF8789',
+        // primary: '#FF8789',
+        primary: '#FF856A',
         secondary: '#f2c3a5',
         accentLight: '#ea3f27',
         accentDark: '#5b3633',

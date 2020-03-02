@@ -1056,7 +1056,7 @@ video {
 }
 
 .bg-primary {
-  background-color: #FF8789;
+  background-color: #FF856A;
 }
 
 .bg-secondary {
@@ -1448,7 +1448,7 @@ video {
 }
 
 .hover\:bg-primary:hover {
-  background-color: #FF8789;
+  background-color: #FF856A;
 }
 
 .hover\:bg-secondary:hover {
@@ -1840,7 +1840,7 @@ video {
 }
 
 .focus\:bg-primary:focus {
-  background-color: #FF8789;
+  background-color: #FF856A;
 }
 
 .focus\:bg-secondary:focus {
@@ -2312,7 +2312,7 @@ video {
 }
 
 .border-primary {
-  border-color: #FF8789;
+  border-color: #FF856A;
 }
 
 .border-secondary {
@@ -2704,7 +2704,7 @@ video {
 }
 
 .hover\:border-primary:hover {
-  border-color: #FF8789;
+  border-color: #FF856A;
 }
 
 .hover\:border-secondary:hover {
@@ -3096,7 +3096,7 @@ video {
 }
 
 .focus\:border-primary:focus {
-  border-color: #FF8789;
+  border-color: #FF856A;
 }
 
 .focus\:border-secondary:focus {
@@ -7609,19 +7609,19 @@ video {
 }
 
 .placeholder-primary::-webkit-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .placeholder-primary:-ms-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .placeholder-primary::-ms-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .placeholder-primary::placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .placeholder-secondary::-webkit-input-placeholder {
@@ -9177,19 +9177,19 @@ video {
 }
 
 .focus\:placeholder-primary:focus::-webkit-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .focus\:placeholder-primary:focus:-ms-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .focus\:placeholder-primary:focus::-ms-input-placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .focus\:placeholder-primary:focus::placeholder {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .focus\:placeholder-secondary:focus::-webkit-input-placeholder {
@@ -9904,7 +9904,7 @@ video {
 }
 
 .text-primary {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .text-secondary {
@@ -10296,7 +10296,7 @@ video {
 }
 
 .hover\:text-primary:hover {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .hover\:text-secondary:hover {
@@ -10688,7 +10688,7 @@ video {
 }
 
 .focus\:text-primary:focus {
-  color: #FF8789;
+  color: #FF856A;
 }
 
 .focus\:text-secondary:focus {
@@ -14041,7 +14041,7 @@ video {
   }
 
   .sm\:bg-primary {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .sm\:bg-secondary {
@@ -14433,7 +14433,7 @@ video {
   }
 
   .sm\:hover\:bg-primary:hover {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .sm\:hover\:bg-secondary:hover {
@@ -14825,7 +14825,7 @@ video {
   }
 
   .sm\:focus\:bg-primary:focus {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .sm\:focus\:bg-secondary:focus {
@@ -15297,7 +15297,7 @@ video {
   }
 
   .sm\:border-primary {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .sm\:border-secondary {
@@ -15689,7 +15689,7 @@ video {
   }
 
   .sm\:hover\:border-primary:hover {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .sm\:hover\:border-secondary:hover {
@@ -16081,7 +16081,7 @@ video {
   }
 
   .sm\:focus\:border-primary:focus {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .sm\:focus\:border-secondary:focus {
@@ -20594,19 +20594,19 @@ video {
   }
 
   .sm\:placeholder-primary::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:placeholder-primary:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:placeholder-primary::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:placeholder-primary::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:placeholder-secondary::-webkit-input-placeholder {
@@ -22162,19 +22162,19 @@ video {
   }
 
   .sm\:focus\:placeholder-primary:focus::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:focus\:placeholder-primary:focus:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:focus\:placeholder-primary:focus::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:focus\:placeholder-primary:focus::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:focus\:placeholder-secondary:focus::-webkit-input-placeholder {
@@ -22889,7 +22889,7 @@ video {
   }
 
   .sm\:text-primary {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:text-secondary {
@@ -23281,7 +23281,7 @@ video {
   }
 
   .sm\:hover\:text-primary:hover {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:hover\:text-secondary:hover {
@@ -23673,7 +23673,7 @@ video {
   }
 
   .sm\:focus\:text-primary:focus {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .sm\:focus\:text-secondary:focus {
@@ -27027,7 +27027,7 @@ video {
   }
 
   .md\:bg-primary {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .md\:bg-secondary {
@@ -27419,7 +27419,7 @@ video {
   }
 
   .md\:hover\:bg-primary:hover {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .md\:hover\:bg-secondary:hover {
@@ -27811,7 +27811,7 @@ video {
   }
 
   .md\:focus\:bg-primary:focus {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .md\:focus\:bg-secondary:focus {
@@ -28283,7 +28283,7 @@ video {
   }
 
   .md\:border-primary {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .md\:border-secondary {
@@ -28675,7 +28675,7 @@ video {
   }
 
   .md\:hover\:border-primary:hover {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .md\:hover\:border-secondary:hover {
@@ -29067,7 +29067,7 @@ video {
   }
 
   .md\:focus\:border-primary:focus {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .md\:focus\:border-secondary:focus {
@@ -33580,19 +33580,19 @@ video {
   }
 
   .md\:placeholder-primary::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:placeholder-primary:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:placeholder-primary::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:placeholder-primary::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:placeholder-secondary::-webkit-input-placeholder {
@@ -35148,19 +35148,19 @@ video {
   }
 
   .md\:focus\:placeholder-primary:focus::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:focus\:placeholder-primary:focus:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:focus\:placeholder-primary:focus::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:focus\:placeholder-primary:focus::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:focus\:placeholder-secondary:focus::-webkit-input-placeholder {
@@ -35875,7 +35875,7 @@ video {
   }
 
   .md\:text-primary {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:text-secondary {
@@ -36267,7 +36267,7 @@ video {
   }
 
   .md\:hover\:text-primary:hover {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:hover\:text-secondary:hover {
@@ -36659,7 +36659,7 @@ video {
   }
 
   .md\:focus\:text-primary:focus {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .md\:focus\:text-secondary:focus {
@@ -40013,7 +40013,7 @@ video {
   }
 
   .lg\:bg-primary {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .lg\:bg-secondary {
@@ -40405,7 +40405,7 @@ video {
   }
 
   .lg\:hover\:bg-primary:hover {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .lg\:hover\:bg-secondary:hover {
@@ -40797,7 +40797,7 @@ video {
   }
 
   .lg\:focus\:bg-primary:focus {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .lg\:focus\:bg-secondary:focus {
@@ -41269,7 +41269,7 @@ video {
   }
 
   .lg\:border-primary {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .lg\:border-secondary {
@@ -41661,7 +41661,7 @@ video {
   }
 
   .lg\:hover\:border-primary:hover {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .lg\:hover\:border-secondary:hover {
@@ -42053,7 +42053,7 @@ video {
   }
 
   .lg\:focus\:border-primary:focus {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .lg\:focus\:border-secondary:focus {
@@ -46566,19 +46566,19 @@ video {
   }
 
   .lg\:placeholder-primary::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:placeholder-primary:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:placeholder-primary::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:placeholder-primary::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:placeholder-secondary::-webkit-input-placeholder {
@@ -48134,19 +48134,19 @@ video {
   }
 
   .lg\:focus\:placeholder-primary:focus::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:focus\:placeholder-primary:focus:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:focus\:placeholder-primary:focus::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:focus\:placeholder-primary:focus::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:focus\:placeholder-secondary:focus::-webkit-input-placeholder {
@@ -48861,7 +48861,7 @@ video {
   }
 
   .lg\:text-primary {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:text-secondary {
@@ -49253,7 +49253,7 @@ video {
   }
 
   .lg\:hover\:text-primary:hover {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:hover\:text-secondary:hover {
@@ -49645,7 +49645,7 @@ video {
   }
 
   .lg\:focus\:text-primary:focus {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .lg\:focus\:text-secondary:focus {
@@ -52999,7 +52999,7 @@ video {
   }
 
   .xl\:bg-primary {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .xl\:bg-secondary {
@@ -53391,7 +53391,7 @@ video {
   }
 
   .xl\:hover\:bg-primary:hover {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .xl\:hover\:bg-secondary:hover {
@@ -53783,7 +53783,7 @@ video {
   }
 
   .xl\:focus\:bg-primary:focus {
-    background-color: #FF8789;
+    background-color: #FF856A;
   }
 
   .xl\:focus\:bg-secondary:focus {
@@ -54255,7 +54255,7 @@ video {
   }
 
   .xl\:border-primary {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .xl\:border-secondary {
@@ -54647,7 +54647,7 @@ video {
   }
 
   .xl\:hover\:border-primary:hover {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .xl\:hover\:border-secondary:hover {
@@ -55039,7 +55039,7 @@ video {
   }
 
   .xl\:focus\:border-primary:focus {
-    border-color: #FF8789;
+    border-color: #FF856A;
   }
 
   .xl\:focus\:border-secondary:focus {
@@ -59552,19 +59552,19 @@ video {
   }
 
   .xl\:placeholder-primary::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:placeholder-primary:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:placeholder-primary::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:placeholder-primary::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:placeholder-secondary::-webkit-input-placeholder {
@@ -61120,19 +61120,19 @@ video {
   }
 
   .xl\:focus\:placeholder-primary:focus::-webkit-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:focus\:placeholder-primary:focus:-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:focus\:placeholder-primary:focus::-ms-input-placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:focus\:placeholder-primary:focus::placeholder {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:focus\:placeholder-secondary:focus::-webkit-input-placeholder {
@@ -61847,7 +61847,7 @@ video {
   }
 
   .xl\:text-primary {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:text-secondary {
@@ -62239,7 +62239,7 @@ video {
   }
 
   .xl\:hover\:text-primary:hover {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:hover\:text-secondary:hover {
@@ -62631,7 +62631,7 @@ video {
   }
 
   .xl\:focus\:text-primary:focus {
-    color: #FF8789;
+    color: #FF856A;
   }
 
   .xl\:focus\:text-secondary:focus {

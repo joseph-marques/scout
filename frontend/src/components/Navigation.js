@@ -25,7 +25,7 @@ function Navigation() {
         className="flex items-center flex-start flex-wrap m-0 p-0"
         style={{
           background:
-            'linear-gradient(to right, #f2c3a5, #f6b598, #faa78f, #fd978a, #ff8789)'
+            'linear-gradient(to right, #f2c3a5, #f5b593, #f9a683, #fc9675, #ff856a)'
         }}
       >
         {renderNavLink({ title: 'Home', link: '/home', exact: true })}
