@@ -13,7 +13,8 @@ module.exports = {
         secondary: '#f2c3a5',
         accentLight: '#ea3f27',
         accentDark: '#5b3633',
-        black: '#2A2A2A'
+        black: '#2A2A2A',
+        darkgray: '#2A2A2A'
       }
     }
   },

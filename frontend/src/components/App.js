@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ScoutListContainer from './ScoutListContainer';
 import ScoutProfileContainer from './ScoutProfileContainer';
 import UserSettingsContainer from './UserSettingsContainer';
@@ -9,6 +8,7 @@ import PrivateRoute from './ProtectedRoute';
 import SignUp from './SignUp';
 import Login from './Login';
 import UserHome from './UserHome';
+import Home from './Home';
 
 function App() {
   return (
@@ -23,18 +23,9 @@ function App() {
             <PrivateRoute path="/scouts" component={ScoutListContainer} />
             <PrivateRoute path="/settings" component={UserSettingsContainer} />
             <PrivateRoute path="/home" component={UserHome} />
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-
-            <Route path="/">
-              Landing Page!
-              <Link to="/login">login</Link>
-              <Link to="/signup">signup</Link>
-            </Route>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={SignUp} />
+            <Route exact path="/" component={Home} />
           </Switch>
         </Router>
       </AuthProvider>

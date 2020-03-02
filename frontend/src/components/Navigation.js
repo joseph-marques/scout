@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import Firebase from './Firebase';
+import { NavLink } from 'react-router-dom';
+import Header from './Header';
 
 function Navigation() {
   const renderNavLink = ({ title, link, exact = false }) => {
@@ -37,19 +37,7 @@ function Navigation() {
 
   return (
     <nav className="shadow-lg z-50">
-      <div className="flex items-center justify-between flex-wrap p-3 px-10 bg-black">
-        <div className="flex items-end flex-shrink-0 mr-10">
-          <span className="tracking-wider font-black text-5xl pt-2 font-logo text-secondary tracking-tight">
-            <Link to="/">scout</Link>
-          </span>
-        </div>
-        <button
-          className="inline-block text-sm font-logo px-4 py-2 leading-none border-2 rounded text-white border-white hover:border-transparent hover:text-primary hover:bg-white mt-4 md:mt-2"
-          onClick={() => Firebase.auth().signOut()}
-        >
-          logout
-        </button>
-      </div>
+      <Header showLogout={true} />
       {renderSubHeader()}
     </nav>
   );
