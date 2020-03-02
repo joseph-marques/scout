@@ -43,8 +43,8 @@ const SignUp = ({ history }) => {
         />
         <button
           className="inline-block text-md font-logo px-4 py-3 leading-none border-2
-          rounded-md text-secondary border-secondary hover:text-darkgray
-          hover:bg-secondary mt-4"
+          rounded-md text-black bg-secondary border-transparent hover:text-secondary
+          hover:bg-black hover:border-secondary mt-4"
           type="submit"
         >
           sign up
