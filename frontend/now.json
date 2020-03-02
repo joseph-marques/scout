@@ -6,7 +6,7 @@
       "REACT_APP_FIREBASE_DATABASE": "https://scout-13d6c.firebaseio.com",
       "REACT_APP_FIREBASE_PROJECT_ID": "scout-13d6c",
       "REACT_APP_FIREBASE_STORAGE_BUCKET": "scout-13d6c.appspot.com",
-      "REACT_APP_FIREBASE_SENDER_ID": 550930009340
+      "REACT_APP_FIREBASE_SENDER_ID": "550930009340"
     }
   }
 }
