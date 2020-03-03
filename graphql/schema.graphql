@@ -15,6 +15,7 @@ input ScoutInput {
     bio: String!
     roles: [RoleInput!]
     skills: [String!]
+    services: [ServiceInput!]
 }
 
 input RoleInput {
@@ -43,6 +44,12 @@ input AppointmentInput {
     serviceNumber: Int,
     requester: ID!,
     note: String,
+    comments: [AppointmentCommentInput!]
+}
+
+input AppointmentCommentInput {
+    author: Scout!,
+    comment: String!
 }
 
 type Scout {
@@ -83,11 +90,17 @@ type Service {
 
 type Appointment {
   """An ISO8601 Timestamp"""
-    when: String,
-    status: AppointmentStatus,
-    service: Service,
-    requester: Scout,
-    note: String,
+    when: String
+    status: AppointmentStatus
+    service: Service
+    requester: Scout
+    note: String
+    comments: [AppointmentComment!]
+}
+
+type AppointmentComment {
+    author: Scout!,
+    comment: String!
 }
 
 enum AppointmentStatus {
