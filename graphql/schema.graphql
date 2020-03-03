@@ -1,5 +1,6 @@
 type Query {
     scout(id: ID!): Scout
+    scouts(skills: [String!], numScouts: Int, startAfter: ID): [Scout]
 }
 
 type Mutation {

@@ -62,6 +62,50 @@ func (r *resolver) Scout(ctx context.Context, args ScoutQueryArgs) (*scoutResolv
 	return sr, nil
 }
 
+// ScoutsQueryArgs are the arguments for the "scouts" query.
+type ScoutsQueryArgs struct {
+	// Skills of the scouts.
+	Skills *[]string
+	// NumScouts is the number of scouts to retrieve.
+	NumScouts *int32
+	// StartAfter is the scout ID to start after.
+	StartAfter *graphql.ID
+}
+
+func (r *resolver) Scouts(ctx context.Context, args ScoutsQueryArgs) (*[]*scoutResolver, error) {
+	users := db.Collection("Users")
+	q := users.Where("isListed", "==", true)
+	for _, skill := range *args.Skills {
+		q = users.Where("skills", "array-contains", skill)
+	}
+	if args.NumScouts != nil {
+		q = q.Limit(int(*args.NumScouts))
+	}
+	if args.StartAfter != nil {
+		d, err := users.Doc(string(*args.StartAfter)).Get(ctx)
+		if err != nil {
+			return nil, err
+		}
+		q = q.StartAfter(d)
+	}
+
+	docs, err := q.Documents(ctx).GetAll()
+	if err != nil {
+		return nil, err
+	}
+
+	resolvers := []*scoutResolver{}
+	for _, doc := range docs {
+		sr := &scoutResolver{}
+		if err := doc.DataTo(sr); err != nil {
+			return nil, err
+		}
+		resolvers = append(resolvers, sr)
+	}
+
+	return &resolvers, nil
+}
+
 type RoleInput struct {
 	Title       *string `firebase:"Title"`
 	Institution *string `firebase:"Institution"`
