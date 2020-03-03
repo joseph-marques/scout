@@ -26,7 +26,7 @@ function Header({ showLogin = false, showLogout = false }) {
           hover:bg-white"
           onClick={() => Firebase.auth().signOut()}
         >
-          logout
+          log out
         </button>
       )}
     </div>

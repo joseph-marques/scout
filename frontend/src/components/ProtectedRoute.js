@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { AuthContext } from './Auth';
 import Navigation from './Navigation';
@@ -11,11 +11,13 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
       {...rest}
       render={routeProps =>
         !!currentUser ? (
-          <div className="flex-auto bg-gray-200">
+          <Fragment>
             <Navigation />
-            <RouteComponent {...routeProps} />
+            <div className="flex-1 w-full content-center overflow-y-auto bg-gray-200">
+              <RouteComponent {...routeProps} />
+            </div>
             <Footer />
-          </div>
+          </Fragment>
         ) : (
           <Redirect to="/login" />
         )
