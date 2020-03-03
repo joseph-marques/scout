@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Firebase from '../clients/Firebase';
 
 function Header({ showLogin = false, showLogout = false }) {
-  const link = showLogout ? '/home' : '/';
+  const link = showLogout ? '/dashboard' : '/';
   return (
     <div className="flex bg-black content-start w-full items-center justify-between flex-shrink-0 p-3 px-10">
       <span className="tracking-wider font-black text-5xl pt-2 font-logo text-secondary tracking-tight">

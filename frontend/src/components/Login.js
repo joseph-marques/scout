@@ -16,7 +16,7 @@ const Login = ({ history }) => {
           email.value,
           password.value
         );
-        history.push('/home');
+        history.push('/dashboard');
       } catch (error) {
         alert(error);
       }
