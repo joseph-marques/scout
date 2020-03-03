@@ -74,9 +74,11 @@ type ScoutsQueryArgs struct {
 
 func (r *resolver) Scouts(ctx context.Context, args ScoutsQueryArgs) (*[]*scoutResolver, error) {
 	users := db.Collection("Users")
-	q := users.Where("isListed", "==", true)
-	for _, skill := range *args.Skills {
-		q = users.Where("skills", "array-contains", skill)
+	q := users.Where("IsListed", "==", true)
+	if args.Skills != nil {
+		for _, skill := range *args.Skills {
+			q = users.Where("skills", "array-contains", skill)
+		}
 	}
 	if args.NumScouts != nil {
 		q = q.Limit(int(*args.NumScouts))
