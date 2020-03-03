@@ -28,7 +28,7 @@ function Navigation() {
             'linear-gradient(to right, #f2c3a5, #f6b598, #faa78f, #fd978a, #ff8789)'
         }}
       >
-        {renderNavLink({ title: 'Home', link: '/home', exact: true })}
+        {renderNavLink({ title: 'Dashboard', link: '/dashboard', exact: true })}
         {renderNavLink({ title: 'Find a Scout', link: '/scouts' })}
         {renderNavLink({ title: 'My Profile', link: '/settings' })}
       </div>

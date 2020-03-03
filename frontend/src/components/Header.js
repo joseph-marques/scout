@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Firebase from './Firebase';
+import Firebase from '../clients/Firebase';
 
 function Header({ showLogin = false, showLogout = false }) {
   const link = showLogout ? '/home' : '/';

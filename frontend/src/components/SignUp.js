@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { withRouter } from 'react-router';
-import Firebase from './Firebase';
+import Firebase from '../clients/Firebase';
 import Header from './Header';
 import Input from './Input';
 

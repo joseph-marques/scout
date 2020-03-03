@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import Firebase from './Firebase';
+import Firebase from '../clients/Firebase';
 import { AuthContext } from './Auth';
 import Header from './Header';
 import Input from './Input';
