@@ -12,9 +12,9 @@ type Mutation {
 
 input ScoutInput {
     id: ID!
-    firstname: String!
-    lastname: String!
-    bio: String!
+    firstname: String
+    lastname: String
+    bio: String
     roles: [RoleInput!]
     skills: [String!]
     services: [ServiceInput!]
@@ -58,9 +58,9 @@ input AppointmentCommentInput {
 
 type Scout {
     id: ID!
-    firstname: String!
-    lastname: String!
-    bio: String!
+    firstname: String
+    lastname: String
+    bio: String
     roles: [Role!]
     skills: [String!]
     rating: ReviewSummary

@@ -14,9 +14,9 @@ type resolver struct{}
 
 type scoutResolver struct {
 	ID        graphql.ID          `firebase:"ID"`
-	FirstName string              `firebase:"FirstName"`
-	LastName  string              `firebase:"LastName"`
-	Bio       string              `firebase:"Bio"`
+	FirstName *string             `firebase:"FirstName"`
+	LastName  *string             `firebase:"LastName"`
+	Bio       *string             `firebase:"Bio"`
 	Roles     *[]*roleResolver    `firebase:"Roles"`
 	Skills    *[]string           `firebase:"Skills"`
 	IsListed  *bool               `firebase:"IsListed"`
@@ -273,9 +273,9 @@ type ServiceInput struct {
 
 type ScoutInput struct {
 	ID        graphql.ID      `firebase:"ID"`
-	FirstName string          `firebase:"FirstName"`
-	LastName  string          `firebase:"LastName"`
-	Bio       string          `firebase:"Bio"`
+	FirstName *string         `firebase:"FirstName"`
+	LastName  *string         `firebase:"LastName"`
+	Bio       *string         `firebase:"Bio"`
 	Roles     *[]RoleInput    `firebase:"Roles"`
 	Skills    *[]string       `firebase:"Skills"`
 	Services  *[]ServiceInput `firebase:"Services"`
