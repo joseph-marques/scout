@@ -25,6 +25,7 @@ input RoleInput {
     title: String
     institution: String
     tenure: String
+    type: RoleType
 }
 
 input ReviewInput {
@@ -75,6 +76,7 @@ type Role {
     title: String
     institution: String
     tenure: String
+    type: RoleType
 }
 
 type ReviewSummary {
@@ -119,4 +121,11 @@ enum AppointmentStatus {
     CONFIRMED
     PAST
     CANCELLED
+}
+
+enum RoleType {
+    UNKNOWN
+    EDUCATION
+    WORK
+    OTHER
 }

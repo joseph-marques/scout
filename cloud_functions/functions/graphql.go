@@ -25,9 +25,26 @@ type scoutResolver struct {
 }
 
 type roleResolver struct {
-	Title       *string `firestore:"Title"`
-	Institution *string `firestore:"Institution"`
-	Tenure      *string `firestore:"Tenure"`
+	Title       *string   `firestore:"Title"`
+	Institution *string   `firestore:"Institution"`
+	Tenure      *string   `firestore:"Tenure"`
+	Type        *roleType `firestore:"Type"`
+}
+
+type roleType int64
+
+const (
+	typeUnknown roleType = iota
+	typeEducation
+	typeWork
+	typeOther
+)
+
+var strToRoleType = map[string]roleType{
+	"UNKNOWN":   typeUnknown,
+	"EDUCATION": typeEducation,
+	"WORK":      typeWork,
+	"OTHER":     typeOther,
 }
 
 func (s *scoutResolver) Rating() *reviewSummaryResolver {
@@ -259,9 +276,11 @@ func (r *resolver) Scouts(ctx context.Context, args ScoutsQueryArgs) (*[]*scoutR
 }
 
 type RoleInput struct {
-	Title       *string `firestore:"Title"`
-	Institution *string `firestore:"Institution"`
-	Tenure      *string `firestore:"Tenure"`
+	Title        *string `firestore:"Title"`
+	Institution  *string `firestore:"Institution"`
+	Tenure       *string `firestore:"Tenure"`
+	Type         *string
+	TypeInternal *roleType `firestore:"Type"`
 }
 
 type ServiceInput struct {
@@ -291,6 +310,15 @@ type UpdateScoutQueryArgs struct {
 func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (*scoutResolver, error) {
 	// VERIFY PERMISSIONS HERE
 	doc := db.Collection("Users").Doc(string(args.Scout.ID))
+	if args.Scout.Roles != nil {
+		for _, role := range *args.Scout.Roles {
+			if role.Type != nil {
+				if t, ok := strToRoleType[*role.Type]; ok {
+					role.TypeInternal = &t
+				}
+			}
+		}
+	}
 	_, err := doc.Set(ctx, args.Scout)
 	if err != nil {
 		return nil, err
