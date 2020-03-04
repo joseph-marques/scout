@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"cloud.google.com/go/firestore"
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
@@ -107,6 +108,7 @@ func (s *scoutResolver) AppointmentsWithOthers(ctx context.Context) (*[]*appoint
 }
 
 type appointmentResolver struct {
+	ID           graphql.ID `firebase:"ID"`
 	When         *string
 	WhenInternal *time.Time                     `firebase:"When"`
 	Status       *appointmentStatus             `firebase:"Status"`
@@ -148,7 +150,16 @@ const (
 	statusRequested
 	statusConfirmed
 	statusPast
+	statusCancelled
 )
+
+var strToAppointmentStatus = map[string]appointmentStatus{
+	"UNKNOWN":   statusUnknown,
+	"REQUESTED": statusRequested,
+	"CONFIRMED": statusConfirmed,
+	"PAST":      statusPast,
+	"CANCELLED": statusCancelled,
+}
 
 type appointmentCommentResolver struct {
 	AuthorID graphql.ID `firebase:"Author"`
@@ -271,7 +282,7 @@ type ScoutInput struct {
 	IsListed  *bool           `firebase:"IsListed"`
 }
 
-// UpdateScoutQueryArgs are the arguments for the "scout" query.
+// UpdateScoutQueryArgs are the arguments for the "updateScout" mutation.
 type UpdateScoutQueryArgs struct {
 	// The scout to update.
 	Scout *ScoutInput
@@ -302,6 +313,93 @@ func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool,
 	// ADD AUTHENTICATION HERE
 	doc := db.Collection("Users").Doc(string(args.Review.Subject)).Collection("Reviews").Doc(string(args.Review.Author))
 	_, err := doc.Set(ctx, args.Review)
+	if err != nil {
+		return false, err
+	}
+	return true, err
+}
+
+type AppointmentInput struct {
+	ID             graphql.ID `firebase:"ID"`
+	When           *string
+	WhenInternal   *time.Time `firebase:"When"`
+	Status         *string
+	StatusInternal *appointmentStatus `firebase:"Status"`
+	ServiceID      graphql.ID         `firebase:"Service"`
+	RequesterID    graphql.ID         `firebase:"Requester"`
+	WithID         graphql.ID         `firebase:"With"`
+	Note           *string            `firebase:"Note"`
+}
+
+// UpdateAppointmentQueryArgs are the arguments for the "updateAppointment" mutation.
+type UpdateAppointmentQueryArgs struct {
+	// The scout to update.
+	Appointment *AppointmentInput
+}
+
+func (r *resolver) UpdateAppointment(ctx context.Context, args UpdateAppointmentQueryArgs) (*appointmentResolver, error) {
+	// VERIFY PERMISSIONS HERE
+	t, err := time.Parse(time.RFC3339, *args.Appointment.When)
+	if err != nil {
+		return nil, err
+	}
+	args.Appointment.WhenInternal = &t
+	if args.Appointment.Status != nil {
+		if status, ok := strToAppointmentStatus[*args.Appointment.Status]; ok {
+			args.Appointment.StatusInternal = &status
+		}
+	}
+	doc := db.Collection("Appointments").Doc(string(args.Appointment.ID))
+	if _, err := doc.Set(ctx, args.Appointment); err != nil {
+		return nil, err
+	}
+
+	d, err := doc.Get(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	ar := &appointmentResolver{}
+	if err := d.DataTo(ar); err != nil {
+		return nil, err
+	}
+	timeStr := ar.WhenInternal.Format(time.RFC3339)
+	ar.When = &timeStr
+	return ar, nil
+}
+
+type CommentOnAppointmentArgs struct {
+	AppointmentID graphql.ID
+	Comment       *AppointmentCommentInput
+}
+
+type AppointmentCommentInput struct {
+	Author  graphql.ID
+	Comment string
+}
+
+func (r *resolver) CommentOnAppointment(ctx context.Context, args CommentOnAppointmentArgs) (bool, error) {
+	// ADD AUTHENTICATION HERE
+	app := db.Collection("Appointments").Doc(string(args.AppointmentID))
+	err := db.RunTransaction(ctx, func(ctx context.Context, tx *firestore.Transaction) error {
+		doc, err := tx.Get(app)
+		if err != nil {
+			return err
+		}
+		ar := &appointmentResolver{}
+		if err := doc.DataTo(ar); err != nil {
+			return err
+		} else if ar.Comments == nil {
+			ar.Comments = &[]*appointmentCommentResolver{}
+		}
+
+		*ar.Comments = append(*ar.Comments, &appointmentCommentResolver{
+			AuthorID: args.Comment.Author,
+			Comment:  args.Comment.Comment,
+		})
+
+		return tx.Set(app, ar)
+	})
 	if err != nil {
 		return false, err
 	}

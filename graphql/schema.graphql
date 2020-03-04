@@ -6,6 +6,8 @@ type Query {
 type Mutation {
     updateScout(scout: ScoutInput!): Scout!
     reviewScout(review: ReviewInput!): Boolean!
+    updateAppointment(appointment: AppointmentInput!): Appointment!
+    commentOnAppointment(appointmentID: ID!, comment: AppointmentCommentInput!): Boolean!
 }
 
 input ScoutInput {
@@ -39,18 +41,18 @@ input ServiceInput {
 }
 
 input AppointmentInput {
+    id: ID!
     """An ISO8601 Timestamp"""
     when: String
     status: AppointmentStatus
-    serviceNumber: Int
-    requester: ID!
-    with: ID!
+    serviceid: ID!
+    requesterid: ID!
+    withid: ID!
     note: String
-    comments: [AppointmentCommentInput!]
 }
 
 input AppointmentCommentInput {
-    author: Scout!,
+    author: ID!,
     comment: String!
 }
 
@@ -95,6 +97,7 @@ type Service {
 }
 
 type Appointment {
+    id: ID!
   """An ISO8601 Timestamp"""
     when: String
     status: AppointmentStatus
@@ -115,4 +118,5 @@ enum AppointmentStatus {
     REQUESTED
     CONFIRMED
     PAST
+    CANCELLED
 }
