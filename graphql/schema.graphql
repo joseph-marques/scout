@@ -16,6 +16,7 @@ input ScoutInput {
     roles: [RoleInput!]
     skills: [String!]
     services: [ServiceInput!]
+    isListed: Boolean
 }
 
 input RoleInput {
@@ -39,11 +40,12 @@ input ServiceInput {
 
 input AppointmentInput {
     """An ISO8601 Timestamp"""
-    when: String,
-    status: AppointmentStatus,
-    serviceNumber: Int,
-    requester: ID!,
-    note: String,
+    when: String
+    status: AppointmentStatus
+    serviceNumber: Int
+    requester: ID!
+    with: ID!
+    note: String
     comments: [AppointmentCommentInput!]
 }
 
@@ -57,11 +59,14 @@ type Scout {
     firstname: String!
     lastname: String!
     bio: String!
-    currentroles: [Role!]
+    roles: [Role!]
     skills: [String!]
     rating: ReviewSummary
     reviews: [Review!]
-    appointments: [Appointment!]
+    isListed: Boolean
+    appointmentsWithMe: [Appointment!]
+    appointmentsWithOthers: [Appointment!]
+    services: [Service!]
 }
 
 type Role {
@@ -83,6 +88,7 @@ type Review {
 }
 
 type Service {
+    id: ID!
     title: String
     description: String
     price: String
@@ -94,6 +100,7 @@ type Appointment {
     status: AppointmentStatus
     service: Service
     requester: Scout
+    with: Scout
     note: String
     comments: [AppointmentComment!]
 }
@@ -106,6 +113,6 @@ type AppointmentComment {
 enum AppointmentStatus {
     UNKNOWN
     REQUESTED
-    GRANTED
+    CONFIRMED
     PAST
 }
