@@ -417,6 +417,6 @@ func HandleGraphQL(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// Set CORS headers for the main request.
-	w.Header().Set("Access-Control-Allow-Origin", "https://scout-phi.now.sh")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	h.ServeHTTP(w, r)
 }
