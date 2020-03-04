@@ -13,21 +13,21 @@ import (
 type resolver struct{}
 
 type scoutResolver struct {
-	ID        graphql.ID          `firebase:"ID"`
-	FirstName *string             `firebase:"FirstName"`
-	LastName  *string             `firebase:"LastName"`
-	Bio       *string             `firebase:"Bio"`
-	Roles     *[]*roleResolver    `firebase:"Roles"`
-	Skills    *[]string           `firebase:"Skills"`
-	IsListed  *bool               `firebase:"IsListed"`
-	Services  *[]*serviceResolver `firebase:"Services"`
+	ID        graphql.ID          `firestore:"ID"`
+	FirstName *string             `firestore:"FirstName"`
+	LastName  *string             `firestore:"LastName"`
+	Bio       *string             `firestore:"Bio"`
+	Roles     *[]*roleResolver    `firestore:"Roles"`
+	Skills    *[]string           `firestore:"Skills"`
+	IsListed  *bool               `firestore:"IsListed"`
+	Services  *[]*serviceResolver `firestore:"Services"`
 	// rating: ReviewSummary
 }
 
 type roleResolver struct {
-	Title       *string `firebase:"Title"`
-	Institution *string `firebase:"Institution"`
-	Tenure      *string `firebase:"Tenure"`
+	Title       *string `firestore:"Title"`
+	Institution *string `firestore:"Institution"`
+	Tenure      *string `firestore:"Tenure"`
 }
 
 func (s *scoutResolver) Rating() *reviewSummaryResolver {
@@ -53,14 +53,13 @@ func (s *scoutResolver) Reviews(ctx context.Context) (*[]*reviewResolver, error)
 }
 
 type reviewResolver struct {
-	AuthorID  graphql.ID `firebase:"Author"`
-	SubjectID graphql.ID `firebase:"Subject"`
-	Rating    float64    `firebase:"Rating"`
-	Text      *string    `firebase:"Tenure"`
+	AuthorID  graphql.ID `firestore:"Author"`
+	SubjectID graphql.ID `firestore:"Subject"`
+	Rating    float64    `firestore:"Rating"`
+	Text      *string    `firestore:"Tenure"`
 }
 
 func (r *reviewResolver) Author(ctx context.Context) (*scoutResolver, error) {
-	fmt.Printf("AUTHORID: %q", r.AuthorID)
 	return (&resolver{}).Scout(ctx, ScoutQueryArgs{ID: r.AuthorID})
 }
 
@@ -109,15 +108,15 @@ func (s *scoutResolver) AppointmentsWithOthers(ctx context.Context) (*[]*appoint
 }
 
 type appointmentResolver struct {
-	ID           graphql.ID `firebase:"ID"`
+	ID           graphql.ID `firestore:"ID"`
 	When         *string
-	WhenInternal *time.Time                     `firebase:"When"`
-	Status       *appointmentStatus             `firebase:"Status"`
-	ServiceID    graphql.ID                     `firebase:"Service"`
-	RequesterID  graphql.ID                     `firebase:"Requester"`
-	WithID       graphql.ID                     `firebase:"With"`
-	Note         *string                        `firebase:"Note"`
-	Comments     *[]*appointmentCommentResolver `firebase:"Comments"`
+	WhenInternal *time.Time                     `firestore:"When"`
+	Status       *appointmentStatus             `firestore:"Status"`
+	ServiceID    graphql.ID                     `firestore:"Service"`
+	RequesterID  graphql.ID                     `firestore:"Requester"`
+	WithID       graphql.ID                     `firestore:"With"`
+	Note         *string                        `firestore:"Note"`
+	Comments     *[]*appointmentCommentResolver `firestore:"Comments"`
 }
 
 func (r *appointmentResolver) Requester(ctx context.Context) (*scoutResolver, error) {
@@ -163,8 +162,8 @@ var strToAppointmentStatus = map[string]appointmentStatus{
 }
 
 type appointmentCommentResolver struct {
-	AuthorID graphql.ID `firebase:"Author"`
-	Comment  string     `firebase:"Comment"`
+	AuthorID graphql.ID `firestore:"Author"`
+	Comment  string     `firestore:"Comment"`
 }
 
 func (r *appointmentCommentResolver) Author(ctx context.Context) (*scoutResolver, error) {
@@ -172,10 +171,10 @@ func (r *appointmentCommentResolver) Author(ctx context.Context) (*scoutResolver
 }
 
 type serviceResolver struct {
-	ID          graphql.ID `firebase:"ID"`
-	Title       *string    `firebase:"Title"`
-	Description *string    `firebase:"Description"`
-	Price       *string    `firebase:"Price"`
+	ID          graphql.ID `firestore:"ID"`
+	Title       *string    `firestore:"Title"`
+	Description *string    `firestore:"Description"`
+	Price       *string    `firestore:"Price"`
 }
 
 type reviewSummaryResolver struct {
@@ -260,27 +259,27 @@ func (r *resolver) Scouts(ctx context.Context, args ScoutsQueryArgs) (*[]*scoutR
 }
 
 type RoleInput struct {
-	Title       *string `firebase:"Title"`
-	Institution *string `firebase:"Institution"`
-	Tenure      *string `firebase:"Tenure"`
+	Title       *string `firestore:"Title"`
+	Institution *string `firestore:"Institution"`
+	Tenure      *string `firestore:"Tenure"`
 }
 
 type ServiceInput struct {
-	ID          graphql.ID `firebase:"ID"`
-	Title       *string    `firebase:"Title"`
-	Description *string    `firebase:"Description"`
-	Price       *string    `firebase:"Price"`
+	ID          graphql.ID `firestore:"ID"`
+	Title       *string    `firestore:"Title"`
+	Description *string    `firestore:"Description"`
+	Price       *string    `firestore:"Price"`
 }
 
 type ScoutInput struct {
-	ID        graphql.ID      `firebase:"ID"`
-	FirstName *string         `firebase:"FirstName"`
-	LastName  *string         `firebase:"LastName"`
-	Bio       *string         `firebase:"Bio"`
-	Roles     *[]RoleInput    `firebase:"Roles"`
-	Skills    *[]string       `firebase:"Skills"`
-	Services  *[]ServiceInput `firebase:"Services"`
-	IsListed  *bool           `firebase:"IsListed"`
+	ID        graphql.ID      `firestore:"ID"`
+	FirstName *string         `firestore:"FirstName"`
+	LastName  *string         `firestore:"LastName"`
+	Bio       *string         `firestore:"Bio"`
+	Roles     *[]RoleInput    `firestore:"Roles"`
+	Skills    *[]string       `firestore:"Skills"`
+	Services  *[]ServiceInput `firestore:"Services"`
+	IsListed  *bool           `firestore:"IsListed"`
 }
 
 // UpdateScoutQueryArgs are the arguments for the "updateScout" mutation.
@@ -304,10 +303,10 @@ type ReviewScoutArgs struct {
 }
 
 type ReviewInput struct {
-	Author  graphql.ID `firebase:"Author"`
-	Subject graphql.ID `firebase:"Subject"`
-	Rating  float64    `firebase:"Rating"`
-	Text    *string    `firebase:"Text"`
+	Author  graphql.ID `firestore:"Author"`
+	Subject graphql.ID `firestore:"Subject"`
+	Rating  float64    `firestore:"Rating"`
+	Text    *string    `firestore:"Text"`
 }
 
 func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool, error) {
@@ -321,15 +320,15 @@ func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool,
 }
 
 type AppointmentInput struct {
-	ID             graphql.ID `firebase:"ID"`
+	ID             graphql.ID `firestore:"ID"`
 	When           *string
-	WhenInternal   *time.Time `firebase:"When"`
+	WhenInternal   *time.Time `firestore:"When"`
 	Status         *string
-	StatusInternal *appointmentStatus `firebase:"Status"`
-	ServiceID      graphql.ID         `firebase:"Service"`
-	RequesterID    graphql.ID         `firebase:"Requester"`
-	WithID         graphql.ID         `firebase:"With"`
-	Note           *string            `firebase:"Note"`
+	StatusInternal *appointmentStatus `firestore:"Status"`
+	ServiceID      graphql.ID         `firestore:"Service"`
+	RequesterID    graphql.ID         `firestore:"Requester"`
+	WithID         graphql.ID         `firestore:"With"`
+	Note           *string            `firestore:"Note"`
 }
 
 // UpdateAppointmentQueryArgs are the arguments for the "updateAppointment" mutation.
