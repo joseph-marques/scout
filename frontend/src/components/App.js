@@ -20,6 +20,10 @@ function App() {
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
               <PrivateRoute
+                path="/dashboard"
+                component={UserDashboardContainer}
+              />
+              <PrivateRoute
                 path="/scouts/:id"
                 component={ScoutProfileContainer}
               />
@@ -27,10 +31,6 @@ function App() {
               <PrivateRoute
                 path="/settings"
                 component={UserSettingsContainer}
-              />
-              <PrivateRoute
-                path="/dashboard"
-                component={UserDashboardContainer}
               />
               <Route path="/login" component={Login} />
               <Route path="/signup" component={SignUp} />
