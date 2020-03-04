@@ -60,6 +60,7 @@ type reviewResolver struct {
 }
 
 func (r *reviewResolver) Author(ctx context.Context) (*scoutResolver, error) {
+	fmt.Printf("AUTHORID: %q", r.AuthorID)
 	return (&resolver{}).Scout(ctx, ScoutQueryArgs{ID: r.AuthorID})
 }
 
