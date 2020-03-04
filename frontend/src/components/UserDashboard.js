@@ -60,8 +60,8 @@ const UserDashboard = props => {
       );
     }
 
-    return pastAppointments.map(appt => {
-      return <Appointment {...appt} />;
+    return pastAppointments.map((appt, i) => {
+      return <Appointment key={i} {...appt} />;
     });
   };
 
