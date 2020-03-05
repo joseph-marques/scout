@@ -276,7 +276,9 @@ func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (
 	// VERIFY PERMISSIONS HERE
 	if args.Scout != nil && args.Scout.Services != nil {
 		for i := range *args.Scout.Services {
-			(*args.Scout.Services)[i].ID = args.Scout.ID + (*args.Scout.Services)[i].ID
+			if len((*args.Scout.Services)[i].ID) < len(args.Scout.ID) {
+				(*args.Scout.Services)[i].ID = args.Scout.ID + (*args.Scout.Services)[i].ID
+			}
 		}
 	}
 	doc := db.Collection("Users").Doc(string(args.Scout.ID))
