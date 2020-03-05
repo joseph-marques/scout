@@ -118,6 +118,7 @@ function Appointment(props) {
             )}
           </div>
         </div>
+        <p className="text-sm text-gray-700">{appointment.note}</p>
         <div className="flex w-full justify-center">
           {props.withMe && (
             <React.Fragment>
