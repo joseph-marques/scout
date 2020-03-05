@@ -311,12 +311,13 @@ func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool,
 type AppointmentInput struct {
 	ID           graphql.ID `firestore:"ID"`
 	When         *string
-	WhenInternal *time.Time `firestore:"When"`
-	Status       *string    `firestore:"Status"`
-	ServiceID    graphql.ID `firestore:"Service"`
-	RequesterID  graphql.ID `firestore:"Requester"`
-	WithID       graphql.ID `firestore:"With"`
-	Note         *string    `firestore:"Note"`
+	WhenInternal *time.Time                     `firestore:"When"`
+	Status       *string                        `firestore:"Status"`
+	ServiceID    graphql.ID                     `firestore:"Service"`
+	RequesterID  graphql.ID                     `firestore:"Requester"`
+	WithID       graphql.ID                     `firestore:"With"`
+	Note         *string                        `firestore:"Note"`
+	comments     *[]*appointmentCommentResolver `firestore:"Comments"`
 }
 
 // UpdateAppointmentQueryArgs are the arguments for the "updateAppointment" mutation.
@@ -332,12 +333,27 @@ func (r *resolver) UpdateAppointment(ctx context.Context, args UpdateAppointment
 		return nil, err
 	}
 	args.Appointment.WhenInternal = &t
-	doc := db.Collection("Appointments").Doc(string(args.Appointment.ID))
-	if _, err := doc.Set(ctx, args.Appointment); err != nil {
+	app := db.Collection("Appointments").Doc(string(args.Appointment.ID))
+	err = db.RunTransaction(ctx, func(ctx context.Context, tx *firestore.Transaction) error {
+		doc, err := tx.Get(app)
+		if err != nil {
+			return tx.Set(app, args.Appointment)
+		}
+		ar := &appointmentResolver{}
+		if err := doc.DataTo(ar); err != nil {
+			return err
+		} else if ar.Comments == nil {
+			ar.Comments = &[]*appointmentCommentResolver{}
+		}
+		args.Appointment.comments = ar.Comments
+
+		return tx.Set(app, args.Appointment)
+	})
+	if err != nil {
 		return nil, err
 	}
 
-	d, err := doc.Get(ctx)
+	d, err := app.Get(ctx)
 	if err != nil {
 		return nil, err
 	}
