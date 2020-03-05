@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
-import { withRouter } from 'react-router';
+import React, { useCallback, useContext } from 'react';
+import { withRouter, Redirect } from 'react-router';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
+import { AuthContext } from './Auth';
 import Firebase from '../clients/Firebase';
 import SignUp from './SignUp';
 
@@ -33,6 +34,12 @@ function SignUpContainer({ history }) {
     },
     [history]
   );
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return <SignUp onSignUp={handleSignup} />;
 }
