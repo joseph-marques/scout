@@ -91,8 +91,8 @@ const SCOUTS_QUERY = gql`
   {
     scouts {
       id
-      firstName
-      lastName
+      firstName: firstname
+      lastName: lastname
       bio
       roles {
         title
@@ -111,13 +111,14 @@ const SCOUTS_QUERY = gql`
 function ScoutListContainer() {
   const { loading, error, data } = useQuery(SCOUTS_QUERY);
   if (loading) {
-    console.log('loading...');
+    return 'loading...';
   }
   if (error) {
     console.log(`error: ${error}`);
+    return 'error';
   }
 
-  return <ScoutList scouts={FAKE_DATA.scouts} />;
+  return <ScoutList {...data} />;
 }
 
 export default ScoutListContainer;

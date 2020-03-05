@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../icons/user-4.svg';
 import FullRating from './FullRating';
@@ -11,6 +11,13 @@ function ScoutCard(props) {
       <Skill key={i} title={skill} />
     ));
   };
+
+  let currentRole;
+  if (props.scout.roles && props.scout.roles.length > 0) {
+    currentRole = props.scout.roles[props.scout.roles.length - 1];
+  } else {
+    currentRole = null;
+  }
 
   return (
     <div className="m-2 mb-5">
@@ -25,9 +32,11 @@ function ScoutCard(props) {
               <div className="font-serif font-bold text-black text-2xl">
                 {`${props.scout.firstName} ${props.scout.lastName}`}
               </div>
-              <div className="text-gray-700 text-sm -my-1">
-                {`${props.scout.role.title}, ${props.scout.role.institution}`}
-              </div>
+              {currentRole && (
+                <div className="text-gray-700 text-sm -my-1">
+                  {`${currentRole.title}, ${currentRole.institution}`}
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -38,8 +47,12 @@ function ScoutCard(props) {
             </p>
           </div>
           <div className="px-0 py-4">{renderSkills()}</div>
-          <hr className="py-2" />
-          <FullRating {...props.scout.reviewSummary} />
+          {props.scout.reviewSummary && (
+            <Fragment>
+              <hr className="py-2" />
+              <FullRating {...props.scout.reviewSummary} />
+            </Fragment>
+          )}
         </Card>
       </Link>
     </div>

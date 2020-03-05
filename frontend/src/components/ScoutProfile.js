@@ -6,6 +6,7 @@ import SectionHeader from './SectionHeader';
 import FullRating from './FullRating';
 import Skill from './Skill';
 import Review from './Review';
+import BookableService from './BookableService';
 
 function ScoutProfile(props) {
   const renderSkills = () => {
@@ -14,26 +15,23 @@ function ScoutProfile(props) {
 
   const renderServices = () => {
     return props.services.map((service, i) => (
-      <div key={i} className="py-3 flex flex-col">
-        <div className="flex items-center justify-between pb-3">
-          <p className="text-black font-medium">{service.title}</p>
-          <div className="w-1/3 m:w-1/4 pl-2 ml-2">
-            <a
-              href="/"
-              className="block text-center text-sm text-primary font-bold px-4 py-2 leading-none border-2 rounded border-primary hover:border-transparent hover:text-white hover:bg-primary mt-4 md:mt-2"
-            >
-              {service.price}
-            </a>
-          </div>
-        </div>
-        <p className="text-sm text-gray-700">{service.description}</p>
-      </div>
+      <BookableService key={i} withId={props.id} service={service} />
     ));
   };
 
   const renderReviews = () => {
     return props.reviews.map((review, i) => <Review key={i} review={review} />);
   };
+
+  const currentRole = props.roles[props.roles.length - 1];
+
+  const educationExperiences = props.roles.filter(role => {
+    return role.type === 'EDUCATION';
+  });
+
+  const workExperiences = props.roles.filter(role => {
+    return role.type === 'WORK';
+  });
 
   return (
     <div className="flex flex-col py-6 lg:flex-row justify-center align-center items-center lg:items-start">
@@ -46,23 +44,22 @@ function ScoutProfile(props) {
                 {`${props.firstName} ${props.lastName}`}
               </p>
               <p className="lg:text-lg tracking-wide text-gray-700">
-                {`${props.currentRole.title}, ${props.currentRole.institution}`}
+                {`${currentRole.title}, ${currentRole.institution}`}
               </p>
-              <div className="my-3">
-                <FullRating {...props.reviewSummary} size={4} />
-              </div>
+              {props.reviewSummary && (
+                <div className="my-3">
+                  <FullRating {...props.reviewSummary} size={4} />
+                </div>
+              )}
             </div>
           </div>
           <div className="px-6">
             <ExperienceSection
               title={'Education'}
-              experiences={props.experience.education}
+              experiences={educationExperiences}
             />
             <br className="my-6" />
-            <ExperienceSection
-              title={'Work'}
-              experiences={props.experience.work}
-            />
+            <ExperienceSection title={'Work'} experiences={workExperiences} />
           </div>
         </Card>
       </div>
@@ -75,7 +72,9 @@ function ScoutProfile(props) {
         <br />
         <Card>
           <SectionHeader title={'Start a Conversation'} />
-          <div className="flex flex-col my-2">{renderServices()}</div>
+          {props.services && (
+            <div className="flex flex-col my-2">{renderServices()}</div>
+          )}
         </Card>
         <br />
         <Card>
