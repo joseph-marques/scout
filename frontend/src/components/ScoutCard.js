@@ -12,7 +12,12 @@ function ScoutCard(props) {
     ));
   };
 
-  const currentRole = props.scout.roles[props.scout.roles.length - 1];
+  let currentRole;
+  if (props.scout.roles && props.scout.roles.length > 0) {
+    currentRole = props.scout.roles[props.scout.roles.length - 1];
+  } else {
+    currentRole = null;
+  }
 
   return (
     <div className="m-2 mb-5">
@@ -27,9 +32,11 @@ function ScoutCard(props) {
               <div className="font-serif font-bold text-black text-2xl">
                 {`${props.scout.firstName} ${props.scout.lastName}`}
               </div>
-              <div className="text-gray-700 text-sm -my-1">
-                {`${currentRole.title}, ${currentRole.institution}`}
-              </div>
+              {currentRole && (
+                <div className="text-gray-700 text-sm -my-1">
+                  {`${currentRole.title}, ${currentRole.institution}`}
+                </div>
+              )}
             </div>
           </div>
           <div>

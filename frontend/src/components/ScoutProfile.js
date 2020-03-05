@@ -6,6 +6,7 @@ import SectionHeader from './SectionHeader';
 import FullRating from './FullRating';
 import Skill from './Skill';
 import Review from './Review';
+import BookableService from './BookableService';
 
 function ScoutProfile(props) {
   const renderSkills = () => {
@@ -14,20 +15,7 @@ function ScoutProfile(props) {
 
   const renderServices = () => {
     return props.services.map((service, i) => (
-      <div key={i} className="py-3 flex flex-col">
-        <div className="flex items-center justify-between pb-3">
-          <p className="text-black font-medium">{service.title}</p>
-          <div className="w-1/3 m:w-1/4 pl-2 ml-2">
-            <a
-              href="/"
-              className="block text-center text-sm text-primary font-bold px-4 py-2 leading-none border-2 rounded border-primary hover:border-transparent hover:text-white hover:bg-primary mt-4 md:mt-2"
-            >
-              {service.price}
-            </a>
-          </div>
-        </div>
-        <p className="text-sm text-gray-700">{service.description}</p>
-      </div>
+      <BookableService key={i} withId={props.id} service={service} />
     ));
   };
 

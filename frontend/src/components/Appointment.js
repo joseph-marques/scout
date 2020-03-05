@@ -2,9 +2,14 @@ import React from 'react';
 
 function Appointment(props) {
   const formatDate = () => {
-    // TODO: props.when
-    const month = 'Mar';
-    const day = 3;
+    const date = new Date(props.when);
+    const formattedDate = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    }).format(date);
+
+    const [month, day, _] = formattedDate.replace(/,/g, '').split(' ');
 
     return (
       <div className="flex flex-col items-center pr-4 mt-2">
@@ -15,7 +20,9 @@ function Appointment(props) {
   };
 
   const renderComments = () => {
-    return props.comments.map(({ comment, author }, i) => {
+    const comments = props.comments || [];
+
+    return comments.map(({ comment, author }, i) => {
       return (
         <div key={i} className="flex flex-col py-1 pl-2">
           <span className="text-sm text-black">{comment}</span>
@@ -31,7 +38,7 @@ function Appointment(props) {
       <div className="py-3 flex flex-col w-full">
         <div className="flex justify-between">
           <div className="flex flex-col items-start justify-between pb-3">
-            <p className="text-black text-lg font-medium">{`${props.scout.firstName} ${props.scout.lastName}`}</p>
+            <p className="text-black text-lg font-medium">{`${props.with.firstname} ${props.with.lastname}`}</p>
             <p className="text-md text-gray-700">{props.service.title}</p>
           </div>
           <div>
