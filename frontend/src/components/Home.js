@@ -8,7 +8,7 @@ function Home() {
     <div className="flex flex-col items-center content-center bg-black w-full h-full">
       <Header showLogin={true} />
       <div className="flex-1 w-full overflow-y-auto">
-        <div class="relative bg-white overflow-hidden">
+        <div className="relative bg-white overflow-hidden">
           <div className="relative z-10 bg-white md:max-w-xl md:w-full">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 md:px-8">
               <div className="sm:text-center md:text-left py-8 md:py-20">

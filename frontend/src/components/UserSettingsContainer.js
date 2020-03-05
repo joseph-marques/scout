@@ -10,6 +10,12 @@ const SCOUT_DATA = gql`
     firstname
     lastname
     bio
+    services {
+      id
+      title
+      description
+      price
+    }
     roles {
       title
       institution
@@ -17,12 +23,7 @@ const SCOUT_DATA = gql`
       type
     }
     skills
-    services {
-      id
-      title
-      description
-      price
-    }
+    isListed
   }
 `;
 
@@ -52,24 +53,48 @@ function UserSettingsContainer() {
   });
 
   if (loading) {
-    console.log('loading...');
     return 'loading...';
   }
   if (error) {
-    console.log(`error: ${error}`);
-    return 'error';
+    return 'Something went wrong';
   }
+
+  // TODO skills update
 
   const handlePersonalDetailUpdate = personalDetails => {
     const updatedScoutData = { ...data.scout, ...personalDetails };
     updateScout({ variables: { scout: updatedScoutData } });
   };
 
-  console.log(data);
+  const handleServicesUpdate = newService => {
+    const existingServices = data.scout.services || [];
+    const services = [...existingServices, newService].map((service, i) => {
+      return { ...service, id: `${i + 1}` };
+    });
+    const updatedScoutData = { ...data.scout, services };
+    updateScout({ variables: { scout: updatedScoutData } });
+  };
+
+  const handleRolesUpdate = newRole => {
+    const existingRoles = data.scout.roles || [];
+    const roles = [...existingRoles, newRole];
+    const updatedScoutData = { ...data.scout, roles };
+    updateScout({ variables: { scout: updatedScoutData } });
+  };
+
+  const handleSkillsUpdate = newSkill => {
+    const existingSkills = data.scout.skills || [];
+    const skills = [...existingSkills, newSkill];
+    const updatedScoutData = { ...data.scout, skills };
+    updateScout({ variables: { scout: updatedScoutData } });
+  };
 
   return (
     <UserSettings
       onPersonalDetailUpdate={handlePersonalDetailUpdate}
+      onServicesUpdate={handleServicesUpdate}
+      onRolesUpdate={handleRolesUpdate}
+      onSkillsUpdate={handleSkillsUpdate}
       {...data}
     />
   );

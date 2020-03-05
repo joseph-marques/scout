@@ -35,7 +35,7 @@ function ScoutProfile(props) {
     return props.reviews.map((review, i) => <Review key={i} review={review} />);
   };
 
-  const currentRole = props.roles[0];
+  const currentRole = props.roles[props.roles.length - 1];
 
   const educationExperiences = props.roles.filter(role => {
     return role.type === 'EDUCATION';

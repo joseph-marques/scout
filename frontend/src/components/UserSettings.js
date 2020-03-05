@@ -1,59 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SectionHeader from './SectionHeader';
 import Card from './Card';
+import LightInput from './LightInput';
+import TextArea from './TextArea';
+import Radio from './Radio';
+import ServicesContainer from './ServicesContainer';
+import RolesContainer from './RolesContainer';
+import SkillsContainer from './SkillsContainer';
 
-function Input({ label, name, type, placeholder, value }) {
+function CheckBox({ label, name, checked, onChange }) {
   return (
-    <label className="flex flex-col my-3 w-full">
-      <p className="px-2 text-sm text-sm text-gray-700">{label}</p>
+    <label className="flex my-3 w-full flex-start items-center">
       <input
-        className="w-full rounded-md p-2 bg-gray-200 border-transparent focus:border-secondary border-2"
+        className="rounded-md p-2 bg-gray-200 border-transparent focus:border-secondary border-2"
         name={name}
-        type={type}
-        placeholder={placeholder}
-        defaultValue={value}
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
       />
-    </label>
-  );
-}
-
-function TextArea({ label, name, placeholder, value }) {
-  return (
-    <label className="flex flex-col my-3 w-full">
       <p className="px-2 text-sm text-sm text-gray-700">{label}</p>
-      <textarea
-        className="w-full rounded-md p-2 bg-gray-200 border-transparent focus:border-secondary border-2"
-        name={name}
-        placeholder={placeholder}
-        defaultValue={value}
-      />
     </label>
   );
 }
 
 function PersonalDetails({ scout, onPersonalDetailUpdate }) {
+  const [isListed, setIsListed] = useState(scout.isListed);
+
   return (
     <form
       onSubmit={event => {
         event.preventDefault();
         const { firstname, lastname, bio } = event.target.elements;
+        console.log('LISTED', isListed);
 
         onPersonalDetailUpdate({
           firstname: firstname.value,
           lastname: lastname.value,
-          bio: bio.value
+          bio: bio.value,
+          isListed
         });
       }}
       className="w-full flex flex-col pt-4 px-4 m-auto max-w-xl"
     >
-      <Input
+      <LightInput
         label="First Name"
         name="firstname"
         type="text"
         value={scout.firstname}
         placeholder="First Name"
       />
-      <Input
+      <LightInput
         label="Last Name"
         name="lastname"
         type="text"
@@ -66,11 +62,17 @@ function PersonalDetails({ scout, onPersonalDetailUpdate }) {
         value={scout.bio}
         placeholder="Enter a short bio about yourself and how you can help others."
       />
+      <CheckBox
+        label="Make Profile Public?"
+        name="isListed"
+        checked={isListed}
+        onChange={() => setIsListed(!isListed)}
+      />
 
       <button
-        className="inline-block tracking-wider text-md font-semibold px-4 py-3 leading-none border-2 hover:border-secondary
-          rounded-md hover:text-secondary bg-secondary border-transparent text-white
-          hover:bg-white mt-4"
+        className="inline-block tracking-wider text-md font-semibold px-4 py-3 leading-none border-2 border-secondary
+          rounded-md text-secondary hover:bg-secondary hover:border-transparent hover:text-white
+          bg-white mt-4"
         type="submit"
       >
         Save Personal Details
@@ -88,10 +90,18 @@ function UserSettings(props) {
           <SectionHeader title={'Personal Details'} />
           <PersonalDetails {...props} />
         </Card>
+        <br />
+        <Card>
+          <RolesContainer {...props} />
+        </Card>
       </div>
       <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">
         <Card>
-          <SectionHeader title={'Services'} />
+          <ServicesContainer {...props} />
+        </Card>
+        <br />
+        <Card>
+          <SkillsContainer {...props} />
         </Card>
       </div>
     </div>

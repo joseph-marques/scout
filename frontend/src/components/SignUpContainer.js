@@ -24,14 +24,8 @@ function SignUpContainer({ history }) {
         await Firebase.auth()
           .createUserWithEmailAndPassword(email.value, password.value)
           .then(async ({ user }) => {
-            console.log('HERE');
-            console.log(user);
             await createScout({ variables: { scout: { id: user.uid } } });
-            console.log(data);
           });
-
-        console.log('push');
-        console.log(data);
         history.push('/dashboard');
       } catch (error) {
         alert(error);

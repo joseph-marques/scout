@@ -12,7 +12,7 @@ function ScoutCard(props) {
     ));
   };
 
-  const currentRole = props.scout.roles[0];
+  const currentRole = props.scout.roles[props.scout.roles.length - 1];
 
   return (
     <div className="m-2 mb-5">
