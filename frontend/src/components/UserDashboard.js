@@ -78,7 +78,18 @@ const UserDashboard = props => {
     }
 
     return appts.map((appt, i) => {
-      return <Appointment key={i} withMe={withMe} appointment={appt} />;
+      return (
+        <Appointment
+          key={i}
+          withMe={withMe}
+          appointment={appt}
+          scoutInfo={{
+            id: props.id,
+            firstname: props.firstname,
+            lastname: props.lastname
+          }}
+        />
+      );
     });
   };
 

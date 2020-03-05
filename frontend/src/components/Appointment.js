@@ -11,9 +11,17 @@ const UPDATE_APPOINTMENT_MUTATION = gql`
   }
 `;
 
+const ADD_COMMENT_MUTATION = gql`
+  mutation addComment($appointmentId: ID!, $comment: AppointmentCommentInput!) {
+    commentOnAppointment(appointmentID: $appointmentId, comment: $comment)
+  }
+`;
+
 function Appointment(props) {
   const [appointment, setAppointment] = useState(props.appointment);
+  const [inputValue, setInputValue] = useState('');
   const [updateAppointment] = useMutation(UPDATE_APPOINTMENT_MUTATION);
+  const [addComment] = useMutation(ADD_COMMENT_MUTATION);
 
   const formatDate = () => {
     const date = new Date(appointment.when);
@@ -40,9 +48,34 @@ function Appointment(props) {
       return (
         <div key={i} className="flex flex-col py-1 pl-2">
           <span className="text-sm text-black">{comment}</span>
-          <span className="text-xs text-gray-700">{`${author.firstName} ${author.lastName}`}</span>
+          <span className="text-xs text-gray-700">{`${author.firstname} ${author.lastname}`}</span>
         </div>
       );
+    });
+  };
+
+  const handleAddComment = event => {
+    event.preventDefault();
+    const existingComments = appointment.comments || [];
+    const { comment } = event.target.elements;
+    const newComments = [
+      ...existingComments,
+      {
+        comment: comment.value,
+        author: {
+          firstname: props.scoutInfo.firstname,
+          lastname: props.scoutInfo.lastname
+        }
+      }
+    ];
+
+    setAppointment({ ...appointment, comments: newComments });
+    setInputValue('');
+    addComment({
+      variables: {
+        appointmentId: appointment.id,
+        comment: { author: props.scoutInfo.id, comment: comment.value }
+      }
     });
   };
 
@@ -114,8 +147,14 @@ function Appointment(props) {
         </div>
         <br className="h-4" />
         {renderComments()}
-        <form className="flex items-center content-center">
+        <form
+          onSubmit={handleAddComment}
+          className="flex items-center content-center"
+        >
           <input
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+            name="comment"
             className="bg-gray-200 text-sm px-2 rounded-md py-1 flex-auto"
             type="text"
           />

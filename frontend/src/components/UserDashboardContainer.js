@@ -104,7 +104,10 @@ const SCOUT_QUERY = gql`
   ${APPOINTMENT_DATA}
   query Scout($id: ID!) {
     scout(id: $id) {
+      id
       isListed
+      firstname
+      lastname
       appointmentsWithOthers {
         ...AppointmentData
       }
