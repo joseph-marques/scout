@@ -10,11 +10,13 @@ import BookableService from './BookableService';
 
 function ScoutProfile(props) {
   const renderSkills = () => {
-    return props.skills.map((skill, i) => <Skill key={i} title={skill} />);
+    const skills = props.skills || [];
+    return skills.map((skill, i) => <Skill key={i} title={skill} />);
   };
 
   const renderServices = () => {
-    return props.services.map((service, i) => (
+    const services = props.services || [];
+    return services.map((service, i) => (
       <BookableService key={i} withId={props.id} service={service} />
     ));
   };
@@ -23,13 +25,19 @@ function ScoutProfile(props) {
     return props.reviews.map((review, i) => <Review key={i} review={review} />);
   };
 
-  const currentRole = props.roles[props.roles.length - 1];
+  let currentRole;
+  if (props.roles && props.roles.length > 0) {
+    currentRole = props.roles[props.roles.length - 1];
+  } else {
+    currentRole = null;
+  }
 
-  const educationExperiences = props.roles.filter(role => {
+  const roles = props.roles || [];
+  const educationExperiences = roles.filter(role => {
     return role.type === 'EDUCATION';
   });
 
-  const workExperiences = props.roles.filter(role => {
+  const workExperiences = roles.filter(role => {
     return role.type === 'WORK';
   });
 
@@ -43,9 +51,11 @@ function ScoutProfile(props) {
               <p className="text-xl lg:text-3xl font-serif text-center xl:text-left text-black font-bold tracking-wide -mb-2">
                 {`${props.firstName} ${props.lastName}`}
               </p>
-              <p className="lg:text-lg tracking-wide text-gray-700">
-                {`${currentRole.title}, ${currentRole.institution}`}
-              </p>
+              {currentRole && (
+                <p className="lg:text-lg tracking-wide text-gray-700">
+                  {`${currentRole.title}, ${currentRole.institution}`}
+                </p>
+              )}
               {props.reviewSummary && (
                 <div className="my-3">
                   <FullRating {...props.reviewSummary} size={4} />

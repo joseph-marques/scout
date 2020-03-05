@@ -5,6 +5,7 @@ import Card from './Card';
 import SectionHeader from './SectionHeader';
 
 const UserDashboard = props => {
+  console.log(props);
   const renderScoutRequests = () => {
     return (
       <Fragment>
@@ -12,6 +13,7 @@ const UserDashboard = props => {
         {renderAppointments({
           appointments: props.appointmentsWithMe,
           past: false,
+          withMe: true,
           emptyMessage: `Your profile has been published! Other users can now request your 
             services. Any new request will show up here.`
         })}
@@ -45,7 +47,7 @@ const UserDashboard = props => {
     emptyMessage,
     showLink = false,
     past = false,
-    withOthers = true
+    withMe = false
   }) => {
     const appts = appointments.filter(appt => {
       if (past) {
@@ -76,7 +78,7 @@ const UserDashboard = props => {
     }
 
     return appts.map((appt, i) => {
-      return <Appointment key={i} {...appt} />;
+      return <Appointment key={i} withMe={withMe} appointment={appt} />;
     });
   };
 
