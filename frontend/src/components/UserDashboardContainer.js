@@ -75,15 +75,18 @@ const APPOINTMENT_DATA = gql`
     when
     status
     service {
+      id
       title
       description
       price
     }
     requester {
+      id
       firstname
       lastname
     }
     with {
+      id
       firstname
       lastname
     }
@@ -101,7 +104,10 @@ const SCOUT_QUERY = gql`
   ${APPOINTMENT_DATA}
   query Scout($id: ID!) {
     scout(id: $id) {
+      id
       isListed
+      firstname
+      lastname
       appointmentsWithOthers {
         ...AppointmentData
       }
