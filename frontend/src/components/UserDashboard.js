@@ -5,7 +5,6 @@ import Card from './Card';
 import SectionHeader from './SectionHeader';
 
 const UserDashboard = props => {
-  console.log(props);
   const renderScoutRequests = () => {
     return (
       <Fragment>

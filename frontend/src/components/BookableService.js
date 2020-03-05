@@ -94,8 +94,6 @@ const BookableService = ({ service, withId }) => {
 
   const handleConfirm = additionalInputData => {
     const appointment = { ...apptInput, ...additionalInputData };
-    console.log('here');
-    console.log(appointment);
     updateAppointment({ variables: { appointment } });
     setIsBooking(false);
   };
