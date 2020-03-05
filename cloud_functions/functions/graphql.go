@@ -285,9 +285,9 @@ type RoleInput struct {
 
 type ServiceInput struct {
 	ID          graphql.ID `firestore:"ID"`
-	Title       *string    `firestore:"Title"`
-	Description *string    `firestore:"Description"`
-	Price       *string    `firestore:"Price"`
+	Title       string     `firestore:"Title"`
+	Description string     `firestore:"Description"`
+	Price       string     `firestore:"Price"`
 }
 
 type ScoutInput struct {

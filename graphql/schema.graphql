@@ -36,6 +36,7 @@ input ReviewInput {
 }
 
 input ServiceInput {
+    id: ID!
     title: String!
     description: String!
     price: String!
