@@ -27,7 +27,8 @@ const Login = ({ history }) => {
   const { currentUser } = useContext(AuthContext);
 
   if (currentUser) {
-    return <Redirect to="/dashboard" />;
+    // TODO: return to /dashboard
+    return <Redirect to="/settings" />;
   }
 
   return (

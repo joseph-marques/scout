@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as UserIcon } from '../icons/user-4.svg';
 import FullRating from './FullRating';
@@ -11,6 +11,8 @@ function ScoutCard(props) {
       <Skill key={i} title={skill} />
     ));
   };
+
+  const currentRole = props.scout.roles[0];
 
   return (
     <div className="m-2 mb-5">
@@ -26,7 +28,7 @@ function ScoutCard(props) {
                 {`${props.scout.firstName} ${props.scout.lastName}`}
               </div>
               <div className="text-gray-700 text-sm -my-1">
-                {`${props.scout.role.title}, ${props.scout.role.institution}`}
+                {`${currentRole.title}, ${currentRole.institution}`}
               </div>
             </div>
           </div>
@@ -38,8 +40,12 @@ function ScoutCard(props) {
             </p>
           </div>
           <div className="px-0 py-4">{renderSkills()}</div>
-          <hr className="py-2" />
-          <FullRating {...props.scout.reviewSummary} />
+          {props.scout.reviewSummary && (
+            <Fragment>
+              <hr className="py-2" />
+              <FullRating {...props.scout.reviewSummary} />
+            </Fragment>
+          )}
         </Card>
       </Link>
     </div>

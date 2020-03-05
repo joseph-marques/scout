@@ -32,7 +32,7 @@ const UserDashboard = props => {
       if (past) {
         return appt.status === 'PAST';
       } else {
-        return appt.status !== 'PAST';
+        return appt.status === 'REQUESTED' || appt.status === 'CONFIRMED';
       }
     });
 

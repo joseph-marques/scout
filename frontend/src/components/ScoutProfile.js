@@ -35,6 +35,16 @@ function ScoutProfile(props) {
     return props.reviews.map((review, i) => <Review key={i} review={review} />);
   };
 
+  const currentRole = props.roles[0];
+
+  const educationExperiences = props.roles.filter(role => {
+    return role.type === 'EDUCATION';
+  });
+
+  const workExperiences = props.roles.filter(role => {
+    return role.type === 'WORK';
+  });
+
   return (
     <div className="flex flex-col py-6 lg:flex-row justify-center align-center items-center lg:items-start">
       <div className="p-3 w-full lg:w-1/2 max-w-lg">
@@ -46,23 +56,22 @@ function ScoutProfile(props) {
                 {`${props.firstName} ${props.lastName}`}
               </p>
               <p className="lg:text-lg tracking-wide text-gray-700">
-                {`${props.currentRole.title}, ${props.currentRole.institution}`}
+                {`${currentRole.title}, ${currentRole.institution}`}
               </p>
-              <div className="my-3">
-                <FullRating {...props.reviewSummary} size={4} />
-              </div>
+              {props.reviewSummary && (
+                <div className="my-3">
+                  <FullRating {...props.reviewSummary} size={4} />
+                </div>
+              )}
             </div>
           </div>
           <div className="px-6">
             <ExperienceSection
               title={'Education'}
-              experiences={props.experience.education}
+              experiences={educationExperiences}
             />
             <br className="my-6" />
-            <ExperienceSection
-              title={'Work'}
-              experiences={props.experience.work}
-            />
+            <ExperienceSection title={'Work'} experiences={workExperiences} />
           </div>
         </Card>
       </div>
@@ -75,7 +84,9 @@ function ScoutProfile(props) {
         <br />
         <Card>
           <SectionHeader title={'Start a Conversation'} />
-          <div className="flex flex-col my-2">{renderServices()}</div>
+          {props.services && (
+            <div className="flex flex-col my-2">{renderServices()}</div>
+          )}
         </Card>
         <br />
         <Card>

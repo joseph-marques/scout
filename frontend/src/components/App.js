@@ -6,7 +6,7 @@ import ScoutProfileContainer from './ScoutProfileContainer';
 import UserSettingsContainer from './UserSettingsContainer';
 import { AuthProvider } from './Auth';
 import PrivateRoute from './ProtectedRoute';
-import SignUp from './SignUp';
+import SignUpContainer from './SignUpContainer';
 import Login from './Login';
 import UserDashboardContainer from './UserDashboardContainer';
 import Home from './Home';
@@ -33,7 +33,7 @@ function App() {
                 component={UserSettingsContainer}
               />
               <Route path="/login" component={Login} />
-              <Route path="/signup" component={SignUp} />
+              <Route path="/signup" component={SignUpContainer} />
               <Route exact path="/" component={Home} />
             </Switch>
           </Router>

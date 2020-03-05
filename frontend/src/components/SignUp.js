@@ -1,34 +1,15 @@
-import React, { useCallback } from 'react';
-import { withRouter } from 'react-router';
-import Firebase from '../clients/Firebase';
+import React from 'react';
 import Header from './Header';
 import Input from './Input';
 
-const SignUp = ({ history }) => {
-  const handleSignup = useCallback(
-    async event => {
-      event.preventDefault();
-      const { email, password } = event.target.elements;
-      try {
-        await Firebase.auth().createUserWithEmailAndPassword(
-          email.value,
-          password.value
-        );
-        history.push('/');
-      } catch (error) {
-        alert(error);
-      }
-    },
-    [history]
-  );
-
+const SignUp = ({ onSignUp }) => {
   return (
     <div className="flex flex-col items-center bg-black w-full h-full">
       <Header showLogin={true} />
       <div className="flex-1 w-full content-center overflow-y-auto">
         <form
           className="flex flex-col pt-10 px-4 m-auto max-w-lg"
-          onSubmit={handleSignup}
+          onSubmit={onSignUp}
         >
           <Input
             label="Email"
@@ -52,9 +33,8 @@ const SignUp = ({ history }) => {
           </button>
         </form>
       </div>
-      jjj
     </div>
   );
 };
 
-export default withRouter(SignUp);
+export default SignUp;
