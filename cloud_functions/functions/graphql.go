@@ -137,7 +137,7 @@ func (r *appointmentResolver) Service(ctx context.Context) (*serviceResolver, er
 	}
 
 	for _, service := range *s.Services {
-		if service != nil && service.ID == r.ServiceID {
+		if service != nil && service.ID == string(r.ServiceID) {
 			return service, nil
 		}
 	}
@@ -154,10 +154,10 @@ func (r *appointmentCommentResolver) Author(ctx context.Context) (*scoutResolver
 }
 
 type serviceResolver struct {
-	ID          graphql.ID `firestore:"ID"`
-	Title       *string    `firestore:"Title"`
-	Description *string    `firestore:"Description"`
-	Price       *string    `firestore:"Price"`
+	ID          string  `firestore:"ID"`
+	Title       *string `firestore:"Title"`
+	Description *string `firestore:"Description"`
+	Price       *string `firestore:"Price"`
 }
 
 type reviewSummaryResolver struct {

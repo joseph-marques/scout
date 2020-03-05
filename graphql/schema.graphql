@@ -93,7 +93,7 @@ type Review {
 }
 
 type Service {
-    id: ID!
+    id: String!
     title: String
     description: String
     price: String
