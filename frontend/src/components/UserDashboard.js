@@ -44,7 +44,8 @@ const UserDashboard = props => {
     appointments,
     emptyMessage,
     showLink = false,
-    past = false
+    past = false,
+    withOthers = true
   }) => {
     const appts = appointments.filter(appt => {
       if (past) {

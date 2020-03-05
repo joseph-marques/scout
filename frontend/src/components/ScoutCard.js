@@ -7,9 +7,8 @@ import Skill from './Skill';
 
 function ScoutCard(props) {
   const renderSkills = () => {
-    return props.scout.skills.map((skill, i) => (
-      <Skill key={i} title={skill} />
-    ));
+    const skills = props.scout.skills || [];
+    return skills.map((skill, i) => <Skill key={i} title={skill} />);
   };
 
   let currentRole;
