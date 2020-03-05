@@ -58,6 +58,11 @@ function Appointment(props) {
     event.preventDefault();
     const existingComments = appointment.comments || [];
     const { comment } = event.target.elements;
+
+    if (comment.value.trim() === '') {
+      return;
+    }
+
     const newComments = [
       ...existingComments,
       {
