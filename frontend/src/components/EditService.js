@@ -45,6 +45,7 @@ function EditService(props) {
           rounded-md text-secondary hover:bg-secondary hover:border-transparent hover:text-white
           bg-white mt-4"
             onClick={() => {
+              props.onEditingFinished();
               props.onServicesUpdate(service);
               setEditing(false);
             }}

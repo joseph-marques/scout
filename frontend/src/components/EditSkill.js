@@ -24,11 +24,12 @@ function EditSkill(props) {
           rounded-md text-secondary hover:bg-secondary hover:border-transparent hover:text-white
           bg-white mt-4"
             onClick={() => {
+              props.onEditingFinished();
               props.onSkillsUpdate(skill);
               setEditing(false);
             }}
           >
-            Save Skills
+            Save Skill
           </button>
         </React.Fragment>
       ) : (

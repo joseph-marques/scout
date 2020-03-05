@@ -16,6 +16,7 @@ function ServicesContainer({ scout, onServicesUpdate }) {
           service={service}
           isEditing={i === editIndex}
           onServicesUpdate={onServicesUpdate}
+          onEditingFinished={() => setIsDisabled(false)}
         />
       );
     });
@@ -25,8 +26,11 @@ function ServicesContainer({ scout, onServicesUpdate }) {
     <div>
       <SectionHeader title={'Services'}>
         <button
-          className="leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700
-            hover:text-black hover:border-black ml-3"
+          className={
+            isDisabled
+              ? 'cursor-default disabled leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700 ml-3 opacity-25'
+              : 'leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700 hover:text-black hover:border-black ml-3'
+          }
           disabled={isDisabled}
           onClick={() => {
             setIsDisabled(true);

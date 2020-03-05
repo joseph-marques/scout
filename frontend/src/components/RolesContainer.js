@@ -16,6 +16,7 @@ function RolesContainer({ scout, onRolesUpdate }) {
           role={role}
           isEditing={i === editIndex}
           onRolesUpdate={onRolesUpdate}
+          onEditingFinished={() => setIsDisabled(false)}
         />
       );
     });
@@ -25,8 +26,11 @@ function RolesContainer({ scout, onRolesUpdate }) {
     <div>
       <SectionHeader title={'Past Experience'}>
         <button
-          className="leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700
-            hover:text-black hover:border-black ml-3"
+          className={
+            isDisabled
+              ? 'cursor-default disabled leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700 ml-3 opacity-25'
+              : 'leading-none font-bold tracking-tight text-xs py-1 px-2 border-2 rounded-md text-gray-700 border-gray-700 hover:text-black hover:border-black ml-3'
+          }
           disabled={isDisabled}
           onClick={() => {
             setIsDisabled(true);

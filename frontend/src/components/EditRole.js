@@ -63,6 +63,7 @@ function EditRole(props) {
           bg-white mt-4"
             onClick={() => {
               props.onRolesUpdate(role);
+              props.onEditingFinished();
               setEditing(false);
             }}
           >

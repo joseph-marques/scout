@@ -25,9 +25,14 @@ const Service = ({ title, price, description, disabled, onClick }) => {
           <button
             disabled={disabled}
             onClick={onClick}
-            className="block w-full text-center text-sm text-primary
-            font-bold px-4 py-2 leading-none border-2 rounded border-primary
-            hover:border-transparent hover:text-white hover:bg-primary mt-4 md:mt-2"
+            className={
+              disabled
+                ? `cursor-default disabled opacity-25 block w-full text-center text-sm text-primary 
+              font-bold px-4 py-2 leading-none border-2 rounded border-primary mt-4 md:mt-2`
+                : `block w-full text-center text-sm text-primary 
+              font-bold px-4 py-2 leading-none border-2 rounded border-primary
+              hover:border-transparent hover:text-white hover:bg-primary disabled:opacity-25 mt-4 md:mt-2`
+            }
           >
             {price}
           </button>
