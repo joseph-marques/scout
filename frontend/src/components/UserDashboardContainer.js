@@ -74,6 +74,7 @@ const APPOINTMENT_DATA = gql`
     id
     when
     status
+    note
     service {
       id
       title
