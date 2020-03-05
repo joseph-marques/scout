@@ -1,73 +1,133 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import gql from 'graphql-tag';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import UserDashboard from './UserDashboard';
+import { AuthContext } from './Auth';
+
+const FAKE_DATA = {
+  appointments: [],
+  scheduledAppointments: [
+    {
+      when: '20200224T020000-0800',
+      status: 'PAST',
+      service: {
+        title: 'Consulting Industry Discussion'
+      },
+      scout: {
+        firstName: 'Ike',
+        lastName: 'Ziemann'
+      },
+      requester: {},
+      note: '',
+      comments: [
+        {
+          comment: 'Looking forward to it!',
+          author: {
+            firstName: 'Ike',
+            lastName: 'Ziemann'
+          }
+        },
+        {
+          comment: 'Looking forward to it!',
+          author: {
+            firstName: 'Ike',
+            lastName: 'Ziemann'
+          }
+        }
+      ]
+    },
+    {
+      when: '20200224T020000-0800',
+      status: 'PAST',
+      service: {
+        title: 'Consulting Industry Discussion'
+      },
+      scout: {
+        firstName: 'Ike',
+        lastName: 'Ziemann'
+      },
+      requester: {},
+      note: '',
+      comments: [
+        {
+          comment: 'Looking forward to it!',
+          author: {
+            firstName: 'Ike',
+            lastName: 'Ziemann'
+          }
+        },
+        {
+          comment: 'Looking forward to it!',
+          author: {
+            firstName: 'Ike',
+            lastName: 'Ziemann'
+          }
+        }
+      ]
+    }
+  ],
+  isListed: false
+};
+
+const APPOINTMENT_DATA = gql`
+  fragment AppointmentData on Appointment {
+    id
+    when
+    status
+    service {
+      title
+      description
+      price
+    }
+    requester {
+      firstname
+      lastname
+    }
+    with {
+      firstname
+      lastname
+    }
+    comments {
+      comment
+      author {
+        firstname
+        lastname
+      }
+    }
+  }
+`;
+
+const SCOUT_QUERY = gql`
+  ${APPOINTMENT_DATA}
+  query Scout($id: ID!) {
+    scout(id: $id) {
+      isListed
+      appointmentsWithOthers {
+        ...AppointmentData
+      }
+      appointmentsWithMe {
+        ...AppointmentData
+      }
+    }
+  }
+`;
 
 function UserDashboardContainer() {
-  const data = {
-    appointments: [],
-    scheduledAppointments: [
-      {
-        when: '20200224T020000-0800',
-        status: 'PAST',
-        service: {
-          title: 'Consulting Industry Discussion'
-        },
-        scout: {
-          firstName: 'Ike',
-          lastName: 'Ziemann'
-        },
-        requester: {},
-        note: '',
-        comments: [
-          {
-            comment: 'Looking forward to it!',
-            author: {
-              firstName: 'Ike',
-              lastName: 'Ziemann'
-            }
-          },
-          {
-            comment: 'Looking forward to it!',
-            author: {
-              firstName: 'Ike',
-              lastName: 'Ziemann'
-            }
-          }
-        ]
-      },
-      {
-        when: '20200224T020000-0800',
-        status: 'PAST',
-        service: {
-          title: 'Consulting Industry Discussion'
-        },
-        scout: {
-          firstName: 'Ike',
-          lastName: 'Ziemann'
-        },
-        requester: {},
-        note: '',
-        comments: [
-          {
-            comment: 'Looking forward to it!',
-            author: {
-              firstName: 'Ike',
-              lastName: 'Ziemann'
-            }
-          },
-          {
-            comment: 'Looking forward to it!',
-            author: {
-              firstName: 'Ike',
-              lastName: 'Ziemann'
-            }
-          }
-        ]
-      }
-    ],
-    isListed: false
-  };
+  const { currentUser } = useContext(AuthContext);
+  const { loading, error, data } = useQuery(SCOUT_QUERY, {
+    variables: { id: currentUser.uid }
+  });
 
-  return <UserDashboard {...data} />;
+  if (loading) {
+    return 'loading...';
+  }
+
+  if (error) {
+    console.log(error);
+    return 'Something went wrong';
+  }
+
+  return <UserDashboard {...data.scout} />;
 }
 
 export default UserDashboardContainer;

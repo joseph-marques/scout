@@ -31,7 +31,6 @@ function PersonalDetails({ scout, onPersonalDetailUpdate }) {
       onSubmit={event => {
         event.preventDefault();
         const { firstname, lastname, bio } = event.target.elements;
-        console.log('LISTED', isListed);
 
         onPersonalDetailUpdate({
           firstname: firstname.value,
@@ -82,7 +81,6 @@ function PersonalDetails({ scout, onPersonalDetailUpdate }) {
 }
 
 function UserSettings(props) {
-  console.log(props);
   return (
     <div className="flex flex-col py-6 lg:flex-row justify-center align-center items-center lg:items-start">
       <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">

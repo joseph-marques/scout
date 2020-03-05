@@ -111,7 +111,6 @@ const SCOUTS_QUERY = gql`
 function ScoutListContainer() {
   const { loading, error, data } = useQuery(SCOUTS_QUERY);
   if (loading) {
-    console.log('loading...');
     return 'loading...';
   }
   if (error) {
@@ -119,7 +118,6 @@ function ScoutListContainer() {
     return 'error';
   }
 
-  console.log(data);
   return <ScoutList {...data} />;
 }
 

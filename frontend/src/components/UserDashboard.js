@@ -7,7 +7,20 @@ import SectionHeader from './SectionHeader';
 const UserDashboard = props => {
   const renderScoutRequests = () => {
     return (
-      // if not a scout
+      <Fragment>
+        <SectionHeader title={'Upcoming Bookings'} />
+        {renderAppointments({
+          appointments: props.appointmentsWithMe,
+          past: false,
+          emptyMessage: `Your profile has been published! Other users can now request your 
+            services. Any new request will show up here.`
+        })}
+      </Fragment>
+    );
+  };
+
+  const renderCallToAction = () => {
+    return (
       <Fragment>
         <SectionHeader title={'Become a Scout'} />
         <p className="text-gray-700 text-base py-4">
@@ -27,8 +40,13 @@ const UserDashboard = props => {
     );
   };
 
-  const renderAppointments = ({ past = false }) => {
-    const pastAppointments = props.scheduledAppointments.filter(appt => {
+  const renderAppointments = ({
+    appointments,
+    emptyMessage,
+    showLink = false,
+    past = false
+  }) => {
+    const appts = appointments.filter(appt => {
       if (past) {
         return appt.status === 'PAST';
       } else {
@@ -36,15 +54,11 @@ const UserDashboard = props => {
       }
     });
 
-    if (pastAppointments.length <= 0) {
+    if (appts.length <= 0) {
       return (
         <Fragment>
-          <p className="text-gray-700 text-base py-4">
-            {past
-              ? 'You have no past appointments.'
-              : 'You have no upcoming appointments.'}
-          </p>
-          {!past && (
+          <p className="text-gray-700 text-base py-4">{emptyMessage}</p>
+          {showLink && (
             <div className="flex flex-col items-center">
               <Link
                 to="/scouts"
@@ -60,7 +74,7 @@ const UserDashboard = props => {
       );
     }
 
-    return pastAppointments.map((appt, i) => {
+    return appts.map((appt, i) => {
       return <Appointment key={i} {...appt} />;
     });
   };
@@ -70,14 +84,25 @@ const UserDashboard = props => {
       <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">
         <Card>
           <SectionHeader title={'Upcoming'} />
-          {renderAppointments({ past: false })}
+          {renderAppointments({
+            appointments: props.appointmentsWithOthers,
+            emptyMessage: 'You have no upcoming appointments.',
+            past: false,
+            showLink: true
+          })}
           <br />
           <SectionHeader title={'Past'} />
-          {renderAppointments({ past: true })}
+          {renderAppointments({
+            appointments: props.appointmentsWithOthers,
+            emptyMessage: 'You have no past appointments.',
+            past: true
+          })}
         </Card>
       </div>
       <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">
-        <Card>{renderScoutRequests()}</Card>
+        <Card>
+          {props.isListed ? renderScoutRequests() : renderCallToAction()}
+        </Card>
       </div>
     </div>
   );

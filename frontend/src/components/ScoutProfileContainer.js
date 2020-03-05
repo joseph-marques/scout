@@ -135,15 +135,12 @@ function ScoutProfileContainer() {
     variables: { id: id }
   });
   if (loading) {
-    console.log('loading...');
     return 'loading...';
   }
   if (error) {
     console.log(`error: ${error}`);
     return 'error';
   }
-
-  console.log(data);
 
   return (
     <Fragment>

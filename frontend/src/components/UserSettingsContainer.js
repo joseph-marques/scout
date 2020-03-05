@@ -55,6 +55,7 @@ function UserSettingsContainer() {
   if (loading) {
     return 'loading...';
   }
+
   if (error) {
     return 'Something went wrong';
   }
