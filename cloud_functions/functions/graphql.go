@@ -25,26 +25,10 @@ type scoutResolver struct {
 }
 
 type roleResolver struct {
-	Title       *string   `firestore:"Title"`
-	Institution *string   `firestore:"Institution"`
-	Tenure      *string   `firestore:"Tenure"`
-	Type        *roleType `firestore:"Type"`
-}
-
-type roleType int64
-
-const (
-	typeUnknown roleType = iota
-	typeEducation
-	typeWork
-	typeOther
-)
-
-var strToRoleType = map[string]roleType{
-	"UNKNOWN":   typeUnknown,
-	"EDUCATION": typeEducation,
-	"WORK":      typeWork,
-	"OTHER":     typeOther,
+	Title       *string `firestore:"Title"`
+	Institution *string `firestore:"Institution"`
+	Tenure      *string `firestore:"Tenure"`
+	Type        *string `firestore:"Type"`
 }
 
 func (s *scoutResolver) Rating() *reviewSummaryResolver {
@@ -128,7 +112,7 @@ type appointmentResolver struct {
 	ID           graphql.ID `firestore:"ID"`
 	When         *string
 	WhenInternal *time.Time                     `firestore:"When"`
-	Status       *appointmentStatus             `firestore:"Status"`
+	Status       *string                        `firestore:"Status"`
 	ServiceID    graphql.ID                     `firestore:"Service"`
 	RequesterID  graphql.ID                     `firestore:"Requester"`
 	WithID       graphql.ID                     `firestore:"With"`
@@ -158,24 +142,6 @@ func (r *appointmentResolver) Service(ctx context.Context) (*serviceResolver, er
 		}
 	}
 	return nil, fmt.Errorf("no service with id %q found", r.ServiceID)
-}
-
-type appointmentStatus int64
-
-const (
-	statusUnknown appointmentStatus = iota
-	statusRequested
-	statusConfirmed
-	statusPast
-	statusCancelled
-)
-
-var strToAppointmentStatus = map[string]appointmentStatus{
-	"UNKNOWN":   statusUnknown,
-	"REQUESTED": statusRequested,
-	"CONFIRMED": statusConfirmed,
-	"PAST":      statusPast,
-	"CANCELLED": statusCancelled,
 }
 
 type appointmentCommentResolver struct {
@@ -276,11 +242,10 @@ func (r *resolver) Scouts(ctx context.Context, args ScoutsQueryArgs) (*[]*scoutR
 }
 
 type RoleInput struct {
-	Title        *string `firestore:"Title"`
-	Institution  *string `firestore:"Institution"`
-	Tenure       *string `firestore:"Tenure"`
-	Type         *string
-	TypeInternal *roleType `firestore:"Type"`
+	Title       *string `firestore:"Title"`
+	Institution *string `firestore:"Institution"`
+	Tenure      *string `firestore:"Tenure"`
+	Type        *string `firestore:"Type"`
 }
 
 type ServiceInput struct {
@@ -310,15 +275,6 @@ type UpdateScoutQueryArgs struct {
 func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (*scoutResolver, error) {
 	// VERIFY PERMISSIONS HERE
 	doc := db.Collection("Users").Doc(string(args.Scout.ID))
-	if args.Scout.Roles != nil {
-		for _, role := range *args.Scout.Roles {
-			if role.Type != nil {
-				if t, ok := strToRoleType[*role.Type]; ok {
-					role.TypeInternal = &t
-				}
-			}
-		}
-	}
 	_, err := doc.Set(ctx, args.Scout)
 	if err != nil {
 		return nil, err
@@ -348,15 +304,14 @@ func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool,
 }
 
 type AppointmentInput struct {
-	ID             graphql.ID `firestore:"ID"`
-	When           *string
-	WhenInternal   *time.Time `firestore:"When"`
-	Status         *string
-	StatusInternal *appointmentStatus `firestore:"Status"`
-	ServiceID      graphql.ID         `firestore:"Service"`
-	RequesterID    graphql.ID         `firestore:"Requester"`
-	WithID         graphql.ID         `firestore:"With"`
-	Note           *string            `firestore:"Note"`
+	ID           graphql.ID `firestore:"ID"`
+	When         *string
+	WhenInternal *time.Time `firestore:"When"`
+	Status       *string    `firestore:"Status"`
+	ServiceID    graphql.ID `firestore:"Service"`
+	RequesterID  graphql.ID `firestore:"Requester"`
+	WithID       graphql.ID `firestore:"With"`
+	Note         *string    `firestore:"Note"`
 }
 
 // UpdateAppointmentQueryArgs are the arguments for the "updateAppointment" mutation.
@@ -372,11 +327,6 @@ func (r *resolver) UpdateAppointment(ctx context.Context, args UpdateAppointment
 		return nil, err
 	}
 	args.Appointment.WhenInternal = &t
-	if args.Appointment.Status != nil {
-		if status, ok := strToAppointmentStatus[*args.Appointment.Status]; ok {
-			args.Appointment.StatusInternal = &status
-		}
-	}
 	doc := db.Collection("Appointments").Doc(string(args.Appointment.ID))
 	if _, err := doc.Set(ctx, args.Appointment); err != nil {
 		return nil, err
