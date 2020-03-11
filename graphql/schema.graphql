@@ -36,14 +36,14 @@ input ReviewInput {
 }
 
 input ServiceInput {
-    id: ID!
+    id: ID
     title: String!
     description: String!
     price: String!
 }
 
 input AppointmentInput {
-    id: ID!
+    id: ID
     """An ISO8601 Timestamp"""
     when: String
     status: AppointmentStatus

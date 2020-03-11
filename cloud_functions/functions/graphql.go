@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/firestore"
+	"github.com/google/uuid"
 	graphql "github.com/graph-gophers/graphql-go"
 )
 
@@ -249,10 +250,10 @@ type RoleInput struct {
 }
 
 type ServiceInput struct {
-	ID          graphql.ID `firestore:"ID"`
-	Title       string     `firestore:"Title"`
-	Description string     `firestore:"Description"`
-	Price       string     `firestore:"Price"`
+	ID          *string `firestore:"ID"`
+	Title       string  `firestore:"Title"`
+	Description string  `firestore:"Description"`
+	Price       string  `firestore:"Price"`
 }
 
 type ScoutInput struct {
@@ -276,16 +277,65 @@ func (r *resolver) UpdateScout(ctx context.Context, args UpdateScoutQueryArgs) (
 	// VERIFY PERMISSIONS HERE
 	if args.Scout != nil && args.Scout.Services != nil {
 		for i := range *args.Scout.Services {
-			if len((*args.Scout.Services)[i].ID) < len(args.Scout.ID) {
-				(*args.Scout.Services)[i].ID = args.Scout.ID + (*args.Scout.Services)[i].ID
+			if (*args.Scout.Services)[i].ID == nil {
+				id := uuid.New().String()
+				(*args.Scout.Services)[i].ID = &id
 			}
 		}
 	}
 	doc := db.Collection("Users").Doc(string(args.Scout.ID))
-	_, err := doc.Set(ctx, args.Scout)
+	err := db.RunTransaction(ctx, func(ctx context.Context, tx *firestore.Transaction) error {
+		d, err := tx.Get(doc)
+		if err != nil {
+			return tx.Set(doc, args.Scout)
+		}
+		s := &scoutResolver{}
+		if err := d.DataTo(s); err != nil {
+			return err
+		}
+
+		if args.Scout.FirstName != nil {
+			s.FirstName = args.Scout.FirstName
+		}
+		if args.Scout.LastName != nil {
+			s.LastName = args.Scout.LastName
+		}
+		if args.Scout.Bio != nil {
+			s.Bio = args.Scout.Bio
+		}
+		if args.Scout.Roles != nil {
+			rr := []*roleResolver{}
+			for _, ri := range *args.Scout.Roles {
+				r := roleResolver(ri)
+				rr = append(rr, &r)
+			}
+			s.Roles = &rr
+		}
+		if args.Scout.Skills != nil {
+			s.Skills = args.Scout.Skills
+		}
+		if args.Scout.Services != nil {
+			sr := []*serviceResolver{}
+			for _, si := range *args.Scout.Services {
+				sr = append(sr, &serviceResolver{
+					ID:          string(*si.ID),
+					Title:       &si.Title,
+					Description: &si.Description,
+					Price:       &si.Price,
+				})
+			}
+			s.Services = &sr
+		}
+		if args.Scout.IsListed != nil {
+			s.IsListed = args.Scout.IsListed
+		}
+
+		return tx.Set(doc, s)
+	})
 	if err != nil {
 		return nil, err
 	}
+
 	return r.Scout(ctx, ScoutQueryArgs{ID: args.Scout.ID})
 }
 
@@ -311,7 +361,7 @@ func (r *resolver) ReviewScout(ctx context.Context, args ReviewScoutArgs) (bool,
 }
 
 type AppointmentInput struct {
-	ID           graphql.ID `firestore:"ID"`
+	ID           *graphql.ID `firestore:"ID"`
 	When         *string
 	WhenInternal *time.Time                     `firestore:"When"`
 	Status       *string                        `firestore:"Status"`
@@ -335,7 +385,11 @@ func (r *resolver) UpdateAppointment(ctx context.Context, args UpdateAppointment
 		return nil, err
 	}
 	args.Appointment.WhenInternal = &t
-	app := db.Collection("Appointments").Doc(string(args.Appointment.ID))
+	if args.Appointment.ID == nil {
+		id := graphql.ID(uuid.New().String())
+		args.Appointment.ID = &id
+	}
+	app := db.Collection("Appointments").Doc(string(*args.Appointment.ID))
 	err = db.RunTransaction(ctx, func(ctx context.Context, tx *firestore.Transaction) error {
 		doc, err := tx.Get(app)
 		if err != nil {
