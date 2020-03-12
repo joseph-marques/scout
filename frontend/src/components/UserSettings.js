@@ -1,70 +1,95 @@
-import React, { useState } from 'react';
+import React from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
 import SectionHeader from './SectionHeader';
 import Card from './Card';
-import LightInput from './LightInput';
+import Input from './Input';
+import CheckBox from './Checkbox';
 import TextArea from './TextArea';
 import ServicesContainer from './ServicesContainer';
 import RolesContainer from './RolesContainer';
 import SkillsContainer from './SkillsContainer';
+import useForm from './useForm';
 
-function CheckBox({ label, name, checked, onChange }) {
-  return (
-    <label className="flex my-3 w-full flex-start items-center">
-      <input
-        className="rounded-md p-2 bg-gray-200 border-transparent focus:border-secondary border-2"
-        name={name}
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-      />
-      <p className="px-2 text-sm text-sm text-gray-700">{label}</p>
-    </label>
-  );
-}
+const SCOUT_DATA = gql`
+  fragment ScoutData on Scout {
+    id
+    firstname
+    lastname
+    bio
+    services {
+      id
+      title
+      description
+      price
+    }
+    roles {
+      title
+      institution
+      tenure
+      type
+    }
+    skills
+    isListed
+  }
+`;
 
-function PersonalDetails({ scout, onPersonalDetailUpdate }) {
-  const [isListed, setIsListed] = useState(scout.isListed);
+const UPDATE_SCOUT_MUTATION = gql`
+  ${SCOUT_DATA}
+  mutation updateScout($scout: ScoutInput!) {
+    updateScout(scout: $scout) {
+      ...ScoutData
+    }
+  }
+`;
 
+function PersonalDetails({ scout }) {
+  const [updateScout] = useMutation(UPDATE_SCOUT_MUTATION);
+  const callback = formData => {
+    const updatedScoutData = { id: scout.id, ...formData };
+    updateScout({
+      variables: { scout: updatedScoutData }
+    });
+  };
+  const { inputs, handleInputChange, handleSubmit } = useForm(callback);
   return (
     <form
-      onSubmit={event => {
-        event.preventDefault();
-        const { firstname, lastname, bio } = event.target.elements;
-
-        onPersonalDetailUpdate({
-          firstname: firstname.value,
-          lastname: lastname.value,
-          bio: bio.value,
-          isListed
-        });
-      }}
-      className="w-full flex flex-col pt-4 px-4 m-auto max-w-xl"
+      onSubmit={handleSubmit}
+      className="w-full flex flex-col pt-4 px-4 m-auto "
     >
-      <LightInput
+      <Input
         label="First Name"
         name="firstname"
         type="text"
-        value={scout.firstname}
         placeholder="First Name"
+        light={true}
+        required={true}
+        defaultValue={scout.firstname}
+        onChange={handleInputChange}
       />
-      <LightInput
+      <Input
         label="Last Name"
         name="lastname"
         type="text"
-        value={scout.lastname}
         placeholder="Last Name"
+        light={true}
+        required={true}
+        defaultValue={scout.lastname}
+        onChange={handleInputChange}
       />
       <TextArea
         label="Bio"
         name="bio"
-        value={scout.bio}
         placeholder="Enter a short bio about yourself and how you can help others."
+        required={true}
+        defaultValue={scout.bio}
+        onChange={handleInputChange}
       />
       <CheckBox
         label="Make Profile Public?"
         name="isListed"
-        checked={isListed}
-        onChange={() => setIsListed(!isListed)}
+        defaultChecked={scout.isListed}
+        onChange={handleInputChange}
       />
 
       <button
@@ -81,8 +106,8 @@ function PersonalDetails({ scout, onPersonalDetailUpdate }) {
 
 function UserSettings(props) {
   return (
-    <div className="flex flex-col py-6 lg:flex-row justify-center align-center items-center lg:items-start">
-      <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">
+    <div className="flex flex-col py-6 justify-center align-center items-center">
+      <div className="p-3 w-full max-w-4xl">
         <Card>
           <SectionHeader title={'Personal Details'} />
           <PersonalDetails {...props} />
@@ -91,8 +116,7 @@ function UserSettings(props) {
         <Card>
           <RolesContainer {...props} />
         </Card>
-      </div>
-      <div className="p-3 w-full lg:w-1/2 max-w-lg lg:max-w-2xl">
+        <br />
         <Card>
           <ServicesContainer {...props} />
         </Card>

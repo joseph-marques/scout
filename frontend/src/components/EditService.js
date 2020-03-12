@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LightInput from './LightInput';
+import Input from './Input';
 import TextArea from './TextArea';
 
 function EditService(props) {
@@ -10,20 +10,22 @@ function EditService(props) {
     <div className="flex flex-col py-3">
       {editing && props.isEditing ? (
         <React.Fragment>
-          <LightInput
+          <Input
             label="Title"
             name="title"
             type="text"
+            light={true}
             placeholder="Consulting Interview Prep"
             defaultValue={service.title}
             onChange={e => {
               setService({ ...service, title: e.target.value });
             }}
           />
-          <LightInput
+          <Input
             label="Price"
             name="price"
             type="text"
+            light={true}
             placeholder="$25"
             defaultValue={service.price}
             onChange={e => {

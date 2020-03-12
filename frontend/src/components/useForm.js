@@ -12,9 +12,13 @@ const useForm = callback => {
 
   const handleInputChange = event => {
     event.persist();
+    const value =
+      event.target.type === 'checkbox'
+        ? event.target.checked
+        : event.target.value;
     setInputs(inputs => ({
       ...inputs,
-      [event.target.name]: event.target.value
+      [event.target.name]: value
     }));
   };
 

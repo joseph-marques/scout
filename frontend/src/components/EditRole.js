@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LightInput from './LightInput';
+import Input from './Input';
 import Radio from './Radio';
 
 function EditRole(props) {
@@ -10,27 +10,29 @@ function EditRole(props) {
     <div className="flex flex-col py-3">
       {editing && props.isEditing ? (
         <React.Fragment>
-          <LightInput
+          <Input
             label="Title"
             name="title"
             type="text"
+            light={true}
             placeholder="Sr. Consultant"
             defaultValue={role.title}
             onChange={e => {
               setRole({ ...role, title: e.target.value });
             }}
           />
-          <LightInput
+          <Input
             label="Institution"
             name="institution"
             type="text"
+            light={true}
             placeholder="Not Real Inc."
             defaultValue={role.institution}
             onChange={e => {
               setRole({ ...role, institution: e.target.value });
             }}
           />
-          <LightInput
+          <Input
             label="Tenure"
             name="tenure"
             type="text"

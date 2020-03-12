@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LightInput from './LightInput';
+import Input from './Input';
 
 function EditSkill(props) {
   const [skill, setSkill] = useState(props.skill);
@@ -9,10 +9,11 @@ function EditSkill(props) {
     <div className="flex flex-col py-3">
       {editing && props.isEditing ? (
         <React.Fragment>
-          <LightInput
+          <Input
             label=""
             name="skill"
             type="text"
+            light={true}
             placeholder="Consulting"
             defaultValue={skill}
             onChange={e => {
