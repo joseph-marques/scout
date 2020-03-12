@@ -1,73 +1,8 @@
 import React, { useContext } from 'react';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import UserDashboard from './UserDashboard';
 import { AuthContext } from './Auth';
-
-const FAKE_DATA = {
-  appointments: [],
-  scheduledAppointments: [
-    {
-      when: '20200224T020000-0800',
-      status: 'PAST',
-      service: {
-        title: 'Consulting Industry Discussion'
-      },
-      scout: {
-        firstName: 'Ike',
-        lastName: 'Ziemann'
-      },
-      requester: {},
-      note: '',
-      comments: [
-        {
-          comment: 'Looking forward to it!',
-          author: {
-            firstName: 'Ike',
-            lastName: 'Ziemann'
-          }
-        },
-        {
-          comment: 'Looking forward to it!',
-          author: {
-            firstName: 'Ike',
-            lastName: 'Ziemann'
-          }
-        }
-      ]
-    },
-    {
-      when: '20200224T020000-0800',
-      status: 'PAST',
-      service: {
-        title: 'Consulting Industry Discussion'
-      },
-      scout: {
-        firstName: 'Ike',
-        lastName: 'Ziemann'
-      },
-      requester: {},
-      note: '',
-      comments: [
-        {
-          comment: 'Looking forward to it!',
-          author: {
-            firstName: 'Ike',
-            lastName: 'Ziemann'
-          }
-        },
-        {
-          comment: 'Looking forward to it!',
-          author: {
-            firstName: 'Ike',
-            lastName: 'Ziemann'
-          }
-        }
-      ]
-    }
-  ],
-  isListed: false
-};
 
 const APPOINTMENT_DATA = gql`
   fragment AppointmentData on Appointment {

@@ -31,7 +31,7 @@ function Appointment(props) {
       day: 'numeric'
     }).format(date);
 
-    const [month, day, _] = formattedDate.replace(/,/g, '').split(' ');
+    const [month, day] = formattedDate.replace(/,/g, '').split(' ');
 
     return (
       <div className="flex flex-col items-center pr-4 mt-2">

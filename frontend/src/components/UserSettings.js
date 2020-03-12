@@ -3,7 +3,6 @@ import SectionHeader from './SectionHeader';
 import Card from './Card';
 import LightInput from './LightInput';
 import TextArea from './TextArea';
-import Radio from './Radio';
 import ServicesContainer from './ServicesContainer';
 import RolesContainer from './RolesContainer';
 import SkillsContainer from './SkillsContainer';
