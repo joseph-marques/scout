@@ -43,7 +43,7 @@ const SignUp = ({ history }) => {
     },
     [history, createScout]
   );
-  const { inputs, handleInputChange, handleSubmit } = useForm(handleSignup);
+  const { handleInputChange, handleSubmit } = useForm(handleSignup);
 
   if (currentUser) {
     return <Redirect to="/dashboard" />;
@@ -63,7 +63,6 @@ const SignUp = ({ history }) => {
             type="email"
             required={true}
             onChange={handleInputChange}
-            value={inputs.email}
             placeholder="example@example.com"
           />
           <Input
@@ -72,7 +71,6 @@ const SignUp = ({ history }) => {
             type="password"
             required={true}
             onChange={handleInputChange}
-            value={inputs.password}
             placeholder="password"
           />
           <br />
@@ -82,7 +80,6 @@ const SignUp = ({ history }) => {
             type="text"
             required={true}
             onChange={handleInputChange}
-            value={inputs.firstname}
             placeholder="first name"
           />
           <Input
@@ -91,7 +88,6 @@ const SignUp = ({ history }) => {
             type="last name"
             required={true}
             onChange={handleInputChange}
-            value={inputs.lastname}
             placeholder="last name"
           />
           <br />

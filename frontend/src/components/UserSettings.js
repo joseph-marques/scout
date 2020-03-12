@@ -51,7 +51,7 @@ function PersonalDetails({ scout }) {
       variables: { scout: updatedScoutData }
     });
   };
-  const { inputs, handleInputChange, handleSubmit } = useForm(callback);
+  const { handleInputChange, handleSubmit } = useForm(callback);
   return (
     <form
       onSubmit={handleSubmit}
